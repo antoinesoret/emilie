@@ -3,55 +3,47 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ChildName}}'s Birthday Party</title>
+  <title>Birthday Details – Coming Soon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --accent:#ff8ec7; /* change this to tweak the colour theme */
+      --accent:#ff8ec7;
       --bg:#fff8fb;
     }
     *{box-sizing:border-box;}
     body{
       margin:0;
       font-family:'Poppins',sans-serif;
-      background:var(--bg);
+      min-height:100vh;
       display:flex;
+      flex-direction:column;
       justify-content:center;
       align-items:center;
-      min-height:100vh;
-      padding:1rem;
-    }
-    .card{
-      background:#fff;
-      border-radius:1.25rem;
-      box-shadow:0 8px 24px rgba(0,0,0,.08);
-      padding:2rem 1.5rem;
-      width:100%;
-      max-width:640px;
+      text-align:center;
+      background:var(--bg);
+      padding:2rem;
     }
     h1{
-      color:var(--accent);
-      font-size:2rem;
-      margin:0 0 .5rem;
-      text-align:center;
-    }
-    h2{
-      margin-top:0;
-      font-size:1.25rem;
-      text-align:center;
-    }
-    .section{margin:1.5rem 0;}
-    .section h3{
-      font-size:1rem;
-      margin-bottom:.5rem;
-      text-transform:uppercase;
-      letter-spacing:1px;
+      font-size:2.25rem;
+      margin:0 0 .75rem;
       color:var(--accent);
     }
-    .section p{margin:.25rem 0;}
-
-    .button{
+    p{
+      font-size:1.125rem;
+      margin:.5rem 0 1.25rem;
+      max-width:26rem;
+    }
+    .spinner{
+      width:3rem;height:3rem;
+      border:.4rem solid rgba(0,0,0,.08);
+      border-top-color:var(--accent);
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+      margin-bottom:2rem;
+    }
+    @keyframes spin{to{transform:rotate(360deg);}}
+    a.button{
       display:inline-block;
       background:var(--accent);
       color:#fff;
@@ -61,53 +53,18 @@
       font-weight:600;
       transition:transform .2s ease;
     }
-    .button:hover{transform:scale(1.05);}
+    a.button:hover{transform:scale(1.05);}
 
-    @media (max-width:480px){
-      h1{font-size:1.5rem;}
-      h2{font-size:1.125rem;}
-      .button{padding:.65rem 1.25rem;}
+    @media(max-width:480px){
+      h1{font-size:1.75rem;}
+      p{font-size:1rem;}
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <h1>You're Invited!</h1>
-    <h2>Join us to celebrate {{ChildName}} turning {{Age}}!</h2>
-
-    <section class="section">
-      <h3>Date & Time</h3>
-      <p><strong>{{DayOfWeek}}, {{Month}} {{Date}}, {{Year}}</strong></p>
-      <p>{{StartTime}} – {{EndTime}}</p>
-    </section>
-
-    <section class="section">
-      <h3>Location</h3>
-      <p>{{VenueName}}</p>
-      <p>{{StreetAddress}}<br>{{City}}, {{PostalCode}}</p>
-      <p><a class="button" href="{{GoogleMapsLink}}" target="_blank" rel="noopener">Open in Maps</a></p>
-    </section>
-
-    <section class="section">
-      <h3>Schedule</h3>
-      <p>🎉 Welcome &amp; Snacks – {{StartTime}}</p>
-      <p>🎂 Cake Cutting – {{CakeTime}}</p>
-      <p>🕺 Party Games – {{GamesTime}}</p>
-      <p>💌 Farewell – {{EndTime}}</p>
-    </section>
-
-    <section class="section" style="text-align:center;">
-      <a href="{{RSVPLink}}" class="button">RSVP</a>
-    </section>
-
-    <section class="section" style="text-align:center;">
-      <a href="{{ICSFile}}" class="button">Add to Calendar</a>
-    </section>
-
-    <footer style="text-align:center; font-size:.75rem; opacity:.6; margin-top:2rem;">
-      We can't wait to celebrate with you!<br>
-      Please arrive a few minutes early so we can start on time.
-    </footer>
-  </main>
+  <div class="spinner" aria-label="Loading..."></div>
+  <h1>Hang tight – we’re setting up the party page!</h1>
+  <p>All the details for {{ChildName}}’s birthday celebration will appear here soon. Please check back a little later – magic is in the making ✨</p>
+  <a class="button" href="mailto:{{HostEmail}}?subject=Birthday%20RSVP">RSVP / Questions</a>
 </body>
 </html>
