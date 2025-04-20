@@ -1,91 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Page en construction – Bientôt disponible / Bald verfügbar</title>
+  <title>Liste de cadeaux – Bientôt disponible / Wunschliste – Bald verfügbar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --accent: #e46fb3;
-      --bg-pink: #fdeef1;
-    }
+    :root { --accent: #e46fb3; --bg-pink: #fdeef1; }
     *, *::before, *::after { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
+      margin: 0; font-family: 'Poppins',sans-serif;
       background: var(--bg-pink) url('floral-pattern.png') center/cover fixed;
-      position: relative;
-      color: #333;
-      text-align: center;
-      padding: 2rem;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      position: relative; color: #333; text-align: center;
+      padding: 2rem; min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
     }
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
-      background: var(--bg-pink);
-      opacity: 0.85;
-      z-index: -1;
+      position: fixed; inset: 0;
+      background: var(--bg-pink); opacity: 0.85; z-index: -1;
     }
-    .lang-toggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      display: flex;
-      gap: .5rem;
-      z-index: 10;
+    .lang-toggle { position: fixed; top:1rem; right:1rem; display:flex; gap:.5rem; z-index:10; }
+    .lang-toggle button { background:#fff; border:2px solid var(--accent);
+      color:var(--accent); padding:.25rem .75rem; border-radius:1.5rem;
+      font-weight:600; cursor:pointer; transition:background .2s, color .2s;
     }
-    .lang-toggle button {
-      background: #fff;
-      border: 2px solid var(--accent);
-      color: var(--accent);
-      padding: .25rem .75rem;
-      border-radius: 1.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background .2s, color .2s;
+    .lang-toggle button.active, .lang-toggle button:hover {
+      background:var(--accent); color:#fff;
     }
-    .lang-toggle button.active,
-    .lang-toggle button:hover {
-      background: var(--accent);
-      color: #fff;
+    h1 { font-size:2rem; margin:0 0 1rem; color:var(--accent); }
+    section#gifts { width:100%; max-width:600px; margin:1rem auto; text-align:left; }
+    section#gifts h2 { text-align:center; font-size:1.5rem; color:var(--accent); margin-bottom:1rem; }
+    #gift-list { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr; gap:.75rem; }
+    #gift-list li {
+      display:flex; align-items:center; padding:.75rem;
+      background:rgba(255,255,255,.9); border-radius:.5rem;
+      box-shadow:0 2px 6px rgba(0,0,0,.05);
     }
-    .spinner {
-      width: 3rem;
-      height: 3rem;
-      border: .4rem solid rgba(0,0,0,.08);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 2rem;
+    #gift-list li.taken { opacity:.5; }
+    .gift-thumb { width:60px; height:60px; border-radius:.5rem;
+      object-fit:cover; margin-right:1rem; flex-shrink:0;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    h1 {
-      font-size: 2rem;
-      margin: 0 0 .5rem;
-      color: var(--accent);
+    .gift-info { flex:1; }
+    .gift-info strong { display:block; font-size:1rem; margin-bottom:.25rem; }
+    .gift-info span { display:block; font-size:.875rem; color:#555; }
+    .gift-actions { display:flex; flex-direction:column; align-items:flex-end; gap:.5rem; }
+    .gift-actions a {
+      font-size:.875rem; text-decoration:none;
+      color:var(--accent); font-weight:600;
     }
-    p {
-      font-size: 1.125rem;
-      max-width: 26rem;
-      margin: .25rem 0 1rem;
+    .gift-actions button {
+      background:var(--accent); border:none;
+      color:#fff; padding:.35rem .75rem; border-radius:.5rem;
+      font-size:.875rem; cursor:pointer;
     }
-    #note {
-      font-size: .95rem;
-      opacity: .75;
-      margin-top: 1rem;
+    .gift-actions button:disabled {
+      background:#ccc; cursor:default;
     }
-    @media (max-width: 480px) {
-      h1 { font-size: 1.5rem; }
-      p { font-size: 1rem; }
-    }
+    @media(max-width:480px){ body{padding:1rem;} h1{font-size:1.5rem;} }
   </style>
 </head>
 <body>
@@ -93,43 +67,62 @@
     <button data-lang="fr" class="active">FR</button>
     <button data-lang="de">DE</button>
   </div>
-  <div class="spinner" aria-label="Loading..."></div>
-  <h1 id="title"></h1>
-  <p id="para"></p>
-  <p id="note"></p>
+  <h1 id="page-title"></h1>
+  <section id="gifts">
+    <h2 id="gifts-title"></h2>
+    <ul id="gift-list"></ul>
+  </section>
   <script>
     const texts = {
-      fr: {
-        title: 'Revenez plus tard – nous préparons la page de célébration !',
-        para: 'Tous les détails pour la célébration de bébé seront bientôt disponibles ici. Revenez un peu plus tard – la magie est en cours ✨',
-        note: 'Disponible sur WhatsApp si besoin.'
-      },
-      de: {
-        title: 'Schau später wieder vorbei – wir richten die Feier‑Seite ein!',
-        para: 'Alle Infos zur Feier des Babys erscheinen hier in Kürze. Schau später noch einmal vorbei – die Magie passiert gerade ✨',
-        note: 'Bei Fragen sind wir per WhatsApp erreichbar.'
-      }
+      fr: { pageTitle:'Liste de souhaits', giftsTitle:'Cadeaux disponibles', buyText:'Acheter', takeText:'Je le prends', takenText:'Pris' },
+      de: { pageTitle:'Wunschliste', giftsTitle:'Verfügbare Geschenke', buyText:'Kaufen', takeText:'Ich nehme es', takenText:'Reserviert' }
     };
     let lang = 'fr';
-    const titleEl = document.getElementById('title');
-    const paraEl = document.getElementById('para');
-    const noteEl = document.getElementById('note');
-    function render() {
+    const gifts = [];
+    const url = 'https://raw.githubusercontent.com/USERNAME/REPO/main/gifts.txt';
+    // take button logic
+        if(!g.taken) li.querySelector('button').addEventListener('click', async ()=>{
+          await takeGift(i);
+        });
+        
+        // si pris, rien à faire
+      });        });
+      } catch(e){}
+      render();
+    }
+    function render(){
       const t = texts[lang];
-      titleEl.textContent = t.title;
-      paraEl.textContent = t.para;
-      noteEl.textContent = t.note;
-      document.querySelectorAll('.lang-toggle button').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
+      document.getElementById('page-title').textContent = t.pageTitle;
+      document.getElementById('gifts-title').textContent = t.giftsTitle;
+      const ul = document.getElementById('gift-list'); ul.innerHTML='';
+      gifts.forEach((g,i)=>{
+        const li=document.createElement('li');
+        if(g.taken) li.classList.add('taken');
+        li.innerHTML = `
+          <img src="${g.imgUrl}" alt="${g.name}" class="gift-thumb">
+          <div class="gift-info">
+            <strong>${g.name}</strong>
+            <span>${g.desc}</span>
+          </div>
+          <div class="gift-actions">
+            <a href="${g.buyUrl}" target="_blank">${t.buyText}</a>
+            <button ${g.taken?'disabled':''}>${g.taken?t.takenText:t.takeText}</button>
+          </div>`;
+        // take button logic
+        if(!g.taken) li.querySelector('button').addEventListener('click',()=>{
+          g.taken=true; render();
+        });
+        ul.append(li);
       });
     }
-    document.querySelectorAll('.lang-toggle button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        lang = btn.dataset.lang;
+    document.querySelectorAll('.lang-toggle button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        lang=btn.dataset.lang;
+        document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active',b===btn));
         render();
       });
     });
-    render();
+    loadGifts();
   </script>
 </body>
 </html>
