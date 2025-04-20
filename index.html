@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Célébration – {{Date}} | Blumen‑Feier – {{Datum}}</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page en construction – Bientôt disponible / Bald verfügbar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --accent: #e46fb3;         /* floral accent color */
-      --bg-pink: #fdeef1;        /* soft pink base */
+      --accent: #e46fb3;
+      --bg-pink: #fdeef1;
     }
-    *, *::before, *::after {box-sizing: border-box;}
+    *, *::before, *::after { box-sizing: border-box; }
     body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: transparent;
-  background-image: url('floral-pattern.png');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  color: #333;
-  line-height: 1.5;
-}
-    /* Overlay to soften the pattern */
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-pink) url('floral-pattern.png') center/cover fixed;
+      position: relative;
+      color: #333;
+      text-align: center;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
     body::before {
-  content: "";
-  display: none;
-}
-    #content.hidden { display: none; }
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: var(--bg-pink);
+      opacity: 0.85;
+      z-index: -1;
+    }
     .lang-toggle {
       position: fixed;
       top: 1rem;
@@ -52,216 +57,78 @@
       background: var(--accent);
       color: #fff;
     }
-    header {
-      text-align: center;
-      padding: 3rem 1rem 2rem;
+    .spinner {
+      width: 3rem;
+      height: 3rem;
+      border: .4rem solid rgba(0,0,0,.08);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 2rem;
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.5rem;
+    @keyframes spin { to { transform: rotate(360deg); } }
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 .5rem;
       color: var(--accent);
     }
-    header p {
-      margin: .5rem 0 0;
-      font-size: 1.1rem;
-      opacity: .8;
+    p {
+      font-size: 1.125rem;
+      max-width: 26rem;
+      margin: .25rem 0 1rem;
     }
-    .section {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-    .section h2 {
-      text-align: center;
-      font-size: 1.5rem;
-      margin-bottom: .75rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .section p {
-      margin: .5rem 0 1rem;
-    }
-    .map-wrapper {
-      position: relative;
-      padding-top: 56.25%;
-      border-radius: 1rem;
-      overflow: hidden;
-      box-shadow: 0 4px 16px rgba(0,0,0,.08);
-    }
-    .map-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-    footer {
-      text-align: center;
-      font-size: .85rem;
-      opacity: .6;
-      padding: 2rem 1rem 3rem;
-    }
-    /* Password modal */
-    #login-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(253,238,241,.98);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 20;
-    }
-    .modal {
-      background: #fff;
-      padding: 2rem 2.5rem;
-      border-radius: 1.25rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,.1);
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-    }
-    .modal h2 {
-      margin: 0 0 1rem;
-      color: var(--accent);
-      font-size: 1.25rem;
-      line-height: 1.4;
-    }
-    .modal input {
-      width: 100%;
-      padding: .75rem 1rem;
-      border: 2px solid var(--accent);
-      border-radius: 1.5rem;
-      font-size: 1rem;
-      margin: .75rem 0;
-    }
-    .modal button {
-      width: 100%;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: .75rem;
-      border-radius: 1.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-    .modal p.err {
-      color: #c00;
-      font-size: .9rem;
-      height: 1.25rem;
-      margin: .25rem 0 0;
+    #note {
+      font-size: .95rem;
+      opacity: .75;
+      margin-top: 1rem;
     }
     @media (max-width: 480px) {
-      header h1 { font-size: 1.9rem; }
-      .section h2 { font-size: 1.3rem; }
+      h1 { font-size: 1.5rem; }
+      p { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
-  <!-- Language switcher -->
   <div class="lang-toggle">
     <button data-lang="fr" class="active">FR</button>
     <button data-lang="de">DE</button>
   </div>
-
-  <!-- Protected content -->
-  <div id="content" class="hidden">
-    <header>
-      <h1 id="headline"></h1>
-      <p id="subline"></p>
-    </header>
-    <section class="section" id="when">
-      <h2 id="when-title"></h2>
-      <p id="when-text"></p>
-    </section>
-    <section class="section" id="where">
-      <h2 id="where-title"></h2>
-      <p id="address"></p>
-      <p><a id="gmap-link" href="{{GoogleMapsLink}}" target="_blank" rel="noopener">Google Maps ↗</a></p>
-      <div class="map-wrapper">
-        <iframe id="map-iframe" src="{{GoogleMapsEmbed}}" loading="lazy" allowfullscreen></iframe>
-      </div>
-    </section>
-    <section class="section" id="food">
-      <h2 id="food-title"></h2>
-      <p id="food-text"></p>
-    </section>
-    <footer id="footer"></footer>
-  </div>
-
-  <!-- Password modal -->
-  <div id="login-overlay">
-    <div class="modal">
-      <h2>Entrez le mot de passe<br/>Passwort eingeben</h2>
-      <input type="password" id="pass" placeholder="Mot de passe / Passwort" />
-      <button id="login-btn">OK</button>
-      <p id="err" class="err"></p>
-    </div>
-  </div>
-
+  <div class="spinner" aria-label="Loading..."></div>
+  <h1 id="title"></h1>
+  <p id="para"></p>
+  <p id="note"></p>
   <script>
-    /* Password check (SHA-256 hash) */
-    const HASH = "8746123202abcf57509bcf4a20b72268cdd94b60629d60d9a5c30bffd45f16d8";
-    const overlay = document.getElementById('login-overlay');
-    const content = document.getElementById('content');
-    async function sha256(txt) {
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt));
-      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-    }
-    function unlock() {
-      overlay.style.display = 'none';
-      content.classList.remove('hidden');
-    }
-    document.getElementById('login-btn').addEventListener('click', async () => {
-      const val = document.getElementById('pass').value.trim();
-      if (await sha256(val) === HASH) { sessionStorage.setItem('unlocked', 1); unlock(); }
-      else { document.getElementById('err').textContent = 'Mot de passe incorrect / Falsches Passwort'; }
-    });
-    window.addEventListener('load', () => { if (sessionStorage.getItem('unlocked')) unlock(); });
-
-    /* Content localization */
-    const strings = {
+    const texts = {
       fr: {
-        headline: "Célébrons avec des fleurs !",
-        subline: "Une journée haute en couleurs et pétales.",
-        whenTitle: "Date & Heure",
-        whenText: "{{DayOfWeek}} {{Date}} {{Month}} {{Year}} – à partir de {{StartTime}}",
-        whereTitle: "Lieu de la célébration",
-        address: "{{VenueName}}<br>{{StreetAddress}}<br>{{City}} {{PostalCode}}",
-        foodTitle: "À table !",
-        foodText: "Apéro et barbecue seront servis vers 14h. Prenez donc un gros petit‑déjeuner avant de venir, pour profiter pleinement !",
-        footer: "Thème : les fleurs. Venez habillés de couleurs printanières si le cœur vous en dit. 🌸"
+        title: 'Revenez plus tard – nous préparons la page de célébration !',
+        para: 'Tous les détails pour la célébration de bébé seront bientôt disponibles ici. Revenez un peu plus tard – la magie est en cours ✨',
+        note: 'Disponible sur WhatsApp si besoin.'
       },
       de: {
-        headline: "Lasst uns mit Blumen feiern!",
-        subline: "Ein Tag voller Farben und Blüten.",
-        whenTitle: "Datum & Uhrzeit",
-        whenText: "{{Wochentag}}, {{Datum}} {{Monat}} {{Jahr}} – ab {{StartTime}}",
-        whereTitle: "Veranstaltungsort",
-        address: "{{VenueName}}<br>{{StreetAddress}}<br>{{PostalCode}} {{City}}",
-        foodTitle: "Essen & Trinken",
-        foodText: "Apéro und BBQ gegen 14 Uhr. Also stärkt euch morgens mit einem kräftigen Frühstück, damit ihr alles genießen könnt!",
-        footer: "Thema: Blumen. Kommt gern in frühlingshaften Farben. 🌸"
+        title: 'Schau später wieder vorbei – wir richten die Feier‑Seite ein!',
+        para: 'Alle Infos zur Feier des Babys erscheinen hier in Kürze. Schau später noch einmal vorbei – die Magie passiert gerade ✨',
+        note: 'Bei Fragen sind wir per WhatsApp erreichbar.'
       }
     };
-    let current = 'fr';
+    let lang = 'fr';
+    const titleEl = document.getElementById('title');
+    const paraEl = document.getElementById('para');
+    const noteEl = document.getElementById('note');
     function render() {
-      const s = strings[current];
-      document.documentElement.lang = current;
-      document.getElementById('headline').textContent = s.headline;
-      document.getElementById('subline').textContent = s.subline;
-      document.getElementById('when-title').textContent = s.whenTitle;
-      document.getElementById('when-text').innerHTML = s.whenText;
-      document.getElementById('where-title').textContent = s.whereTitle;
-      document.getElementById('address').innerHTML = s.address;
-      document.getElementById('food-title').textContent = s.foodTitle;
-      document.getElementById('food-text').textContent = s.foodText;
-      document.getElementById('footer').textContent = s.footer;
-      document.querySelectorAll('.lang-toggle button').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === current));
+      const t = texts[lang];
+      titleEl.textContent = t.title;
+      paraEl.textContent = t.para;
+      noteEl.textContent = t.note;
+      document.querySelectorAll('.lang-toggle button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
     }
-    document.querySelectorAll('[data-lang]').forEach(btn => btn.addEventListener('click', e => { current = e.target.dataset.lang; render(); }));
+    document.querySelectorAll('.lang-toggle button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        lang = btn.dataset.lang;
+        render();
+      });
+    });
     render();
   </script>
 </body>
