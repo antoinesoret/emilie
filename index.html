@@ -13,20 +13,20 @@
     }
     *, *::before, *::after {box-sizing: border-box;}
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg-pink) url('floral-pattern.png') center/cover fixed;
-      color: #333;
-      line-height: 1.5;
-    }
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-pink);
+  background-image: url('A_watercolor_digital_painting_features_a_seamless,.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #333;
+  line-height: 1.5;
+}
     /* Overlay to soften the pattern */
     body::before {
   content: "";
-  position: fixed;
-  inset: 0;
-  background: var(--bg-pink);
-  opacity: 0.98;
-  z-index: -1;
+  display: none;
 }
     #content.hidden { display: none; }
     .lang-toggle {
