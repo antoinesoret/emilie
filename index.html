@@ -83,8 +83,15 @@
     .gift a { color:var(--accent-primary); font-weight:600; text-decoration:none; }
     .gift strong { display:block; font-size:1rem; margin-top:.5rem; }
     @media(max-width:600px) {
-      /* Mobile dropdown visible only on small */
+      /* Mobile: hide desktop nav, show dropdown */
       nav { display: none; }
+      #mobile-nav { display: block; }
+      /* Push header down to clear the language toggle (~1rem top + ~3rem toggle height + extra spacing) */
+      header { padding-top: 8rem; }
+      /* Ensure title sits below toggle, remove extra margin */
+      header h1 { font-size: 3rem; margin-top: 0; }
+      .modal h2 { font-size: 1.5rem; }
+    }
       #mobile-nav { display: block; }
       header { padding-top: 6rem; }
       header h1 { font-size: 3rem; margin-top: 2rem; }
