@@ -363,7 +363,11 @@
     }));
     document.getElementById('login-form').addEventListener('submit', async e => {
       e.preventDefault();
-      const val = document.getElementById('pass').value.trim();
+      const passInput = document.getElementById('pass');
+      const val = passInput.value.trim();
+      
+      }
+      // SHA-256 check
       const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
       const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
       if (hex === HASH) {
@@ -371,7 +375,7 @@
         document.getElementById('content').classList.remove('hidden');
         init();
       } else {
-        document.getElementById('err').textContent = lang==='fr'?'Mot de passe incorrect':'Falsches Passwort';
+        document.getElementById('err').textContent = lang === 'fr' ? 'Mot de passe incorrect' : 'Falsches Passwort';
       }
     });
     function init() {
