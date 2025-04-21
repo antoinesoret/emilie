@@ -1,128 +1,124 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Liste de cadeaux – Bientôt disponible / Wunschliste – Bald verfügbar</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invitation à la Célébration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root { --accent: #e46fb3; --bg-pink: #fdeef1; }
-    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --accent: #e46fb3;
+      --bg: #fdeef1;
+      --font: 'Poppins', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0; font-family: 'Poppins',sans-serif;
-      background: var(--bg-pink) url('floral-pattern.png') center/cover fixed;
-      position: relative; color: #333; text-align: center;
-      padding: 2rem; min-height: 100vh;
-      display: flex; flex-direction: column;
-      justify-content: center; align-items: center;
+      font-family: var(--font);
+      background: var(--bg) url('floral-pattern.png') center/cover fixed;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background: var(--bg-pink); opacity: 0.85; z-index: -1;
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(255,255,255,0.85);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .lang-toggle { position: fixed; top:1rem; right:1rem; display:flex; gap:.5rem; z-index:10; }
-    .lang-toggle button { background:#fff; border:2px solid var(--accent);
-      color:var(--accent); padding:.25rem .75rem; border-radius:1.5rem;
-      font-weight:600; cursor:pointer; transition:background .2s, color .2s;
+    header h1 { font-size: 2rem; color: var(--accent); }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: rgba(255,255,255,0.9);
     }
-    .lang-toggle button.active, .lang-toggle button:hover {
-      background:var(--accent); color:#fff;
+    nav button {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      background: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .2s;
     }
-    h1 { font-size:2rem; margin:0 0 1rem; color:var(--accent); }
-    section#gifts { width:100%; max-width:600px; margin:1rem auto; text-align:left; }
-    section#gifts h2 { text-align:center; font-size:1.5rem; color:var(--accent); margin-bottom:1rem; }
-    #gift-list { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr; gap:.75rem; }
-    #gift-list li {
-      display:flex; align-items:center; padding:.75rem;
-      background:rgba(255,255,255,.9); border-radius:.5rem;
-      box-shadow:0 2px 6px rgba(0,0,0,.05);
+    nav button.active,
+    nav button:hover {
+      background: var(--accent);
+      color: #fff;
     }
-    #gift-list li.taken { opacity:.5; }
-    .gift-thumb { width:60px; height:60px; border-radius:.5rem;
-      object-fit:cover; margin-right:1rem; flex-shrink:0;
+    .tab-content {
+      flex: 1;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.8);
     }
-    .gift-info { flex:1; }
-    .gift-info strong { display:block; font-size:1rem; margin-bottom:.25rem; }
-    .gift-info span { display:block; font-size:.875rem; color:#555; }
-    .gift-actions { display:flex; flex-direction:column; align-items:flex-end; gap:.5rem; }
-    .gift-actions a {
-      font-size:.875rem; text-decoration:none;
-      color:var(--accent); font-weight:600;
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    /* Responsive */
+    @media(max-width:600px) {
+      header h1 { font-size: 1.5rem; }
+      nav button { font-size: .9rem; padding: .75rem; }
     }
-    .gift-actions button {
-      background:var(--accent); border:none;
-      color:#fff; padding:.35rem .75rem; border-radius:.5rem;
-      font-size:.875rem; cursor:pointer;
+    /* Content styles */
+    .location img { width: 100%; border-radius: .5rem; margin-bottom: 1rem; }
+    .location iframe { width: 100%; height: 200px; border:0; border-radius: .5rem; }
+    .day ul { list-style: none; }
+    .day li { margin-bottom: .5rem; padding-left: 1.25rem; position: relative; }
+    .day li:before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
     }
-    .gift-actions button:disabled {
-      background:#ccc; cursor:default;
-    }
-    @media(max-width:480px){ body{padding:1rem;} h1{font-size:1.5rem;} }
+    .dresscode p, .gift p { margin-bottom: 1rem; }
+    .gift a { color: var(--accent); text-decoration: none; font-weight:600; }
   </style>
 </head>
 <body>
-  <div class="lang-toggle">
-    <button data-lang="fr" class="active">FR</button>
-    <button data-lang="de">DE</button>
+  <header>
+    <h1>Invitation à Célébrer</h1>
+  </header>
+  <nav>
+    <button data-tab="location" class="active">Lieu</button>
+    <button data-tab="day">La Journée</button>
+    <button data-tab="dresscode">Dresscode</button>
+    <button data-tab="gift">Cadeau</button>
+  </nav>
+  <div class="tab-content">
+    <section id="location" class="tab-panel active location">
+      <img src="location-screenshot.jpg" alt="Capture du lieu" />
+      <p>Adresse: 123 Rue des Fleurs, 75000 Paris</p>
+      <iframe src="{{GoogleMapsEmbed}}" loading="lazy" allowfullscreen></iframe>
+    </section>
+    <section id="day" class="tab-panel day">
+      <h2>Programme de la journée</h2>
+      <ul>
+        <li>10h00 – Accueil & boissons</li>
+        <li>11h00 – Jeux et activités</li>
+        <li>13h00 – Apéritif</li>
+        <li>14h00 – Barbecue & repas</li>
+        <li>16h00 – Gâteau & toasts</li>
+        <li>18h00 – Fin de la fête</li>
+      </ul>
+    </section>
+    <section id="dresscode" class="tab-panel dresscode">
+      <h2>Dresscode</h2>
+      <p>Merci de jouer le thème : tenue florale (motifs fleurs, pastel, léger et printanier).</p>
+    </section>
+    <section id="gift" class="tab-panel gift">
+      <h2>Cadeau</h2>
+      <p>Vous pouvez trouver la sélection ici : <a href="https://exemple-vendor.com" target="_blank">Notre partenaire</a>.</p>
+      <p>Pour vos contributions, voici notre IBAN : <strong>FR76 1234 5678 9012 3456 7890 123</strong></p>
+    </section>
   </div>
-  <h1 id="page-title"></h1>
-  <section id="gifts">
-    <h2 id="gifts-title"></h2>
-    <ul id="gift-list"></ul>
-  </section>
   <script>
-    const texts = {
-      fr: { pageTitle:'Liste de souhaits', giftsTitle:'Cadeaux disponibles', buyText:'Acheter', takeText:'Je le prends', takenText:'Pris' },
-      de: { pageTitle:'Wunschliste', giftsTitle:'Verfügbare Geschenke', buyText:'Kaufen', takeText:'Ich nehme es', takenText:'Reserviert' }
-    };
-    let lang = 'fr';
-    const gifts = [];
-    const url = 'https://raw.githubusercontent.com/USERNAME/REPO/main/gifts.txt';
-    // take button logic
-        if(!g.taken) li.querySelector('button').addEventListener('click', async ()=>{
-          await takeGift(i);
-        });
-        
-        // si pris, rien à faire
-      });        });
-      } catch(e){}
-      render();
-    }
-    function render(){
-      const t = texts[lang];
-      document.getElementById('page-title').textContent = t.pageTitle;
-      document.getElementById('gifts-title').textContent = t.giftsTitle;
-      const ul = document.getElementById('gift-list'); ul.innerHTML='';
-      gifts.forEach((g,i)=>{
-        const li=document.createElement('li');
-        if(g.taken) li.classList.add('taken');
-        li.innerHTML = `
-          <img src="${g.imgUrl}" alt="${g.name}" class="gift-thumb">
-          <div class="gift-info">
-            <strong>${g.name}</strong>
-            <span>${g.desc}</span>
-          </div>
-          <div class="gift-actions">
-            <a href="${g.buyUrl}" target="_blank">${t.buyText}</a>
-            <button ${g.taken?'disabled':''}>${g.taken?t.takenText:t.takeText}</button>
-          </div>`;
-        // take button logic
-        if(!g.taken) li.querySelector('button').addEventListener('click',()=>{
-          g.taken=true; render();
-        });
-        ul.append(li);
-      });
-    }
-    document.querySelectorAll('.lang-toggle button').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        lang=btn.dataset.lang;
-        document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active',b===btn));
-        render();
-      });
-    });
-    loadGifts();
+    const tabs = document.querySelectorAll('nav button');
+    const panels = document.querySelectorAll('.tab-panel');
+    tabs.forEach(btn => btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      tabs.forEach(b => b.classList.toggle('active', b===btn));
+      panels.forEach(p => p.id===target ? p.classList.add('active') : p.classList.remove('active'));
+    }));
   </script>
 </body>
 </html>
