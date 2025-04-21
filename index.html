@@ -300,7 +300,58 @@
   </div>
   <script>
     const HASH = '8746123202abcf57509bcf4a20b72268cdd94b60629d60d9a5c30bffd45f16d8';
-    const translations = { /* same translations object */ };
+    const translations = {
+      fr: {
+        authTitle: 'Entrez le mot de passe',
+        authPlaceholder: 'Mot de passe',
+        authBtn: 'OK',
+        headline: 'Welcome Emilie',
+        locationText: '123 Rue des Fleurs, 75000 Paris',
+        locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.999!2d2.292292!3d48.858370!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1',
+        dayTitle: 'Programme de la journée',
+        dayItems: [
+          '10h00 – Accueil et rafraîchissements',
+          '11h00 – Jeux et animations',
+          '13h00 – Apéritif au jardin',
+          '14h00 – Barbecue & déjeuner',
+          '16h00 – Gâteau et toasts',
+          '18h00 – Clôture de la célébration'
+        ],
+        dresscodeTitle: 'Dresscode',
+        dresscodeText: 'Nous vous invitons à porter des tenues florales et pastel pour entrer dans l'esprit printanier.',
+        giftTitle: 'Cadeau',
+        giftLinkText: 'Visitez notre sélection : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
+        giftIbanText: '<strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123',
+        capsuleTitle: 'Time Capsule',
+        capsuleText: 'Déposez un petit souvenir, une photo ou un mot pour Emilie. Nous ouvrirons la capsule à ses 18 ans.',
+        capsuleNote: 'Merci de laisser un message personnel et plein de tendresse.'
+      },
+      de: {
+        authTitle: 'Passwort eingeben',
+        authPlaceholder: 'Passwort',
+        authBtn: 'OK',
+        headline: 'Welcome Emilie',
+        locationText: 'Blumenstraße 123, 10115 Berlin',
+        locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2424.999!2d13.404954!3d52.520008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1',
+        dayTitle: 'Tagesablauf',
+        dayItems: [
+          '10:00 – Empfang & Getränke',
+          '11:00 – Spiele und Aktivitäten',
+          '13:00 – Apéro im Garten',
+          '14:00 – Barbecue & Mittagessen',
+          '16:00 – Kuchen & Toasts',
+          '18:00 – Ende der Feier'
+        ],
+        dresscodeTitle: 'Dresscode',
+        dresscodeText: 'Bitte kleiden Sie sich blumig und in Pastelltönen, um den Frühlingsgeist zu feiern.',
+        giftTitle: 'Geschenk',
+        giftLinkText: 'Entdecken Sie unsere Auswahl : <a href="https://beispiel-shop.de" target="_blank">https://beispiel-shop.de</a>',
+        giftIbanText: '<strong>IBAN :</strong> DE12 3456 7890 1234 5678 90',
+        capsuleTitle: 'Time Capsule',
+        capsuleText: 'Legen Sie eine kleine Erinnerung, ein Foto oder eine Botschaft für Emilie hinein. Wir öffnen die Kapsel zu ihrem 18. Geburtstag.',
+        capsuleNote: 'Hinterlassen Sie bitte liebevolle persönliche Worte.'
+      }
+    };
     let lang = 'fr';
     document.querySelectorAll('.lang-toggle button').forEach(btn => btn.addEventListener('click', () => {
       lang = btn.dataset.lang;
