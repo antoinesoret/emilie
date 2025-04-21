@@ -20,7 +20,7 @@
     * { box-sizing: border-box; margin:0; padding:0; }
     body {
       font-family: var(--font-main);
-      background: var(--bg-pink) url('floral-bg.jpg') center top/cover no-repeat;
+      background: var(--bg-pink) url('floral-pattern.png') center top/cover no-repeat;
       background-attachment: fixed;
       color: #333;
       min-height: 100vh;
@@ -85,6 +85,11 @@
     @media(max-width:600px) {
       /* Mobile dropdown visible only on small */
       nav { display: none; }
+      #mobile-nav { display: block; }
+      header { padding-top: 6rem; }
+      header h1 { font-size: 3rem; margin-top: 2rem; }
+      .modal h2 { font-size: 1.5rem; }
+    }
       #mobile-nav { display: block; }
       header { padding-top: 5rem; }
       header h1 { font-size: 3rem; margin-top: 1rem; }
