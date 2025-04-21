@@ -9,234 +9,36 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --accent-primary: #833947;
-      --accent-secondary: #df9ac5;
-      --accent-tertiary: #ca69a3;
-      --bg-pink: #fdeef1;
-      --font-main: 'Josefin Sans', sans-serif;
-      --font-title: 'Brittany', cursive;
-    }
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: var(--font-main);
-      background: var(--bg-pink) url('floral-pattern.png') center top/cover no-repeat;
-      background-attachment: fixed;
-      color: #333;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .lang-toggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      display: flex;
-      gap: 0.5rem;
-      z-index: 100;
-    }
-    .lang-toggle button {
-      background: #fff;
-      border: 2px solid var(--accent-primary);
-      color: var(--accent-primary);
-      padding: 0.5rem 1rem;
-      border-radius: 2rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-    }
-    .lang-toggle button.active,
-    .lang-toggle button:hover {
-      background: var(--accent-primary);
-      color: #fff;
-    }
-    #login-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(253, 248, 251, 0.98);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 200;
-    }
-    .modal {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-    }
-    .modal h2 {
-      font-family: var(--font-title);
-      margin-bottom: 1rem;
-      color: var(--accent-primary);
-      font-size: 1.5rem;
-      line-height: 1.2;
-    }
-    .modal input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border: 2px solid var(--accent-secondary);
-      border-radius: 1.5rem;
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
-    .modal button {
-      width: 100%;
-      background: var(--accent-secondary);
-      color: #fff;
-      border: none;
-      padding: 0.75rem;
-      border-radius: 1.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-    .modal p.err {
-      color: #c00;
-      height: 1.25rem;
-      margin-top: 0.5rem;
-    }
-    header {
-      text-align: center;
-      padding: 6rem 1rem 2rem;
-      background: transparent;
-      z-index: 50;
-    }
-    header h1 {
-      font-family: var(--font-title);
-      font-size: 4rem;
-      color: var(--accent-primary);
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin: 2rem auto 0;
-      max-width: 90%;
-      z-index: 50;
-    }
-    nav button {
-      flex: 1;
-      padding: 1.5rem 3rem;
-      border: none;
-      background: #fff;
-      border-radius: 1rem;
-      font-size: 1.3rem;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-    }
-    nav button.active {
-      background: var(--accent-tertiary);
-      color: #fff;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    nav button:hover:not(.active) {
-      background: var(--accent-secondary);
-      color: #fff;
-    }
-    #mobile-nav {
-      display: none;
-    }
-    .tab-content {
-      flex: 1;
-      overflow-y: auto;
-      padding: 2rem 1rem;
-    }
-    .tab-panel {
-      display: none;
-      background: transparent;
-      border-radius: 1rem;
-      padding: 2rem;
-      margin: 1rem auto 2rem;
-      max-width: 800px;
-    }
-    .tab-panel.active {
-      display: block;
-    }
-    .location img {
-      width: 100%;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    .location iframe {
-      width: 100%;
-      height: 300px;
-      border: 0;
-      border-radius: 0.5rem;
-    }
-    .day ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .day li {
-      position: relative;
-      padding-left: 1.25rem;
-      margin-bottom: 0.75rem;
-    }
-    .day li:before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--accent-primary);
-    }
-    .dresscode p,
-    .gift p,
-    .capsule p {
-      font-size: 1rem;
-      line-height: 1.4;
-      margin: 1rem 0;
-    }
-    .gift a {
-      color: var(--accent-primary);
-      font-weight: 600;
-      text-decoration: none;
-    }
-    .gift strong {
-      display: block;
-      font-size: 1rem;
-      margin-top: 0.5rem;
-    }
-    @media(max-width:600px) {
-      nav {
-        display: none;
-      }
-      #mobile-nav {
-        display: block;
-        width: 90%;
-        max-width: 400px;
-        margin: 1rem auto 0;
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
-        border: 2px solid var(--accent-primary);
-        border-radius: 1rem;
-        background: #fff;
-        color: var(--accent-primary);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        appearance: none;
-        -webkit-appearance: none;
-        background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%23833947' d='M0 0l5 6 5-6z'%3E%3C/path%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 1rem center;
-      }
-      header {
-        padding: 4rem 1rem 2rem;
-      }
-      header h1 {
-        font-size: 3rem;
-      }
-      .modal h2 {
-        font-size: 1.5rem;
-      }
-    }
+    :root { --accent-primary:#833947;--accent-secondary:#df9ac5;--accent-tertiary:#ca69a3;--bg-pink:#fdeef1;--font-main:'Josefin Sans',sans-serif;--font-title:'Brittany',cursive; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-main);background:var(--bg-pink) url('floral-pattern.png') center top/cover no-repeat;background-attachment:fixed;color:#333;min-height:100vh;display:flex;flex-direction:column;position:relative}
+    .lang-toggle{position:fixed;top:1rem;right:1rem;display:flex;gap:.5rem;z-index:100}
+    .lang-toggle button{background:#fff;border:2px solid var(--accent-primary);color:var(--accent-primary);padding:.5rem 1rem;border-radius:2rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
+    .lang-toggle button.active,.lang-toggle button:hover{background:var(--accent-primary);color:#fff}
+    #login-overlay{position:fixed;inset:0;background:rgba(253,248,251,.98);display:flex;align-items:center;justify-content:center;z-index:200}
+    .modal{background:#fff;padding:2rem;border-radius:1.5rem;box-shadow:0 8px 24px rgba(0,0,0,.1);text-align:center;width:90%;max-width:400px}
+    .modal h2{font-family:var(--font-title);margin-bottom:1rem;color:var(--accent-primary);font-size:1.5rem;line-height:1.2}
+    .modal input{width:100%;padding:.75rem 1rem;border:2px solid var(--accent-secondary);border-radius:1.5rem;font-size:1rem;margin-bottom:1rem}
+    .modal button{width:100%;background:var(--accent-secondary);color:#fff;border:none;padding:.75rem;border-radius:1.5rem;font-weight:600;cursor:pointer;font-size:1rem}
+    .modal p.err{color:#c00;height:1.25rem;margin-top:.5rem}
+    header{text-align:center;padding:6rem 1rem 2rem;background:transparent;z-index:50}
+    header h1{font-family:var(--font-title);font-size:4rem;color:var(--accent-primary)}
+    nav{display:flex;justify-content:center;gap:1rem;margin:2rem auto 0;max-width:90%;z-index:50}
+    nav button{flex:1;padding:1.5rem 3rem;border:none;background:#fff;border-radius:1rem;font-size:1.3rem;cursor:pointer;transition:background .3s,color .3s,box-shadow .3s;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+    nav button.active{background:var(--accent-tertiary);color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    nav button:hover:not(.active){background:var(--accent-secondary);color:#fff}
+    .tab-content{flex:1;overflow-y:auto;padding:2rem 1rem}
+    .tab-panel{display:none;background:transparent;border-radius:1rem;padding:2rem;margin:1rem auto 2rem;max-width:800px}
+    .tab-panel.active{display:block}
+    .location img{width:100%;border-radius:.5rem;margin-bottom:1rem}
+    .location iframe{width:100%;height:300px;border:0;border-radius:.5rem}
+    .day ul{list-style:none;padding-left:0}
+    .day li{position:relative;padding-left:1.25rem;margin-bottom:.75rem}
+    .day li:before{content:'•';position:absolute;left:0;color:var(--accent-primary)}
+    .dresscode p,.gift p,.capsule p{font-size:1rem;line-height:1.4;margin:1rem 0}
+    .gift a{color:var(--accent-primary);font-weight:600;text-decoration:none}
+    .gift strong{display:block;font-size:1rem;margin-top:.5rem}
+    @media(max-width:600px){nav{display:flex}#mobile-nav{display:none}header{padding:6rem 1rem 2rem}header h1{font-size:3rem;margin-top:1rem}.modal h2{font-size:1.5rem}}  
   </style>
 </head>
 <body>
@@ -246,18 +48,14 @@
   </div>
   <div id="login-overlay">
     <div class="modal">
-      <h2 id="auth-title">Entrez le mot de passe</h2>
-      <form id="login-form">
-        <input type="password" id="pass" name="password" placeholder="Mot de passe" autocomplete="current-password" required />
-        <button type="submit" id="login-btn">OK</button>
-      </form>
+      <h2>Entrez le mot de passe</h2>
+      <input type="password" id="pass" placeholder="Mot de passe" autocomplete="current-password" />
+      <button id="login-btn">OK</button>
       <p id="err" class="err"></p>
     </div>
   </div>
-  <div id="content" class="hidden" style="display:flex; flex-direction:column; flex:1;">
-    <header>
-      <h1>Welcome Emilie</h1>
-    </header>
+  <div id="content" class="hidden" style="display:flex;flex-direction:column;flex:1;">
+    <header><h1>Welcome Emilie</h1></header>
     <nav>
       <button data-tab="location" class="active">Lieu</button>
       <button data-tab="day">Journée</button>
@@ -265,138 +63,56 @@
       <button data-tab="gift">Cadeau</button>
       <button data-tab="capsule">Time Capsule</button>
     </nav>
-    <select id="mobile-nav">
-      <option value="location">Lieu</option>
-      <option value="day">Journée</option>
-      <option value="dresscode">Dresscode</option>
-      <option value="gift">Cadeau</option>
-      <option value="capsule">Time Capsule</option>
-    </select>
     <div class="tab-content">
       <section id="location" class="tab-panel location active">
         <img src="location-screenshot.jpg" alt="Lieu" />
-        <p id="location-text"></p>
-        <iframe id="location-map" src="" loading="lazy"></iframe>
+        <p>123 Rue des Fleurs, 75000 Paris</p>
+        <iframe src="https://www.google.com/maps/embed?..." loading="lazy"></iframe>
       </section>
       <section id="day" class="tab-panel day">
-        <h2 id="day-title"></h2>
-        <ul id="day-list"></ul>
+        <h2>Programme de la journée</h2>
+        <ul>
+          <li>10h00 – Accueil et rafraîchissements</li>
+          <li>11h00 – Jeux et animations</li>
+          <li>13h00 – Apéritif au jardin</li>
+          <li>14h00 – Barbecue & déjeuner</li>
+          <li>16h00 – Gâteau et toasts</li>
+          <li>18h00 – Clôture de la célébration</li>
+        </ul>
       </section>
       <section id="dresscode" class="tab-panel dresscode">
-        <h2 id="dresscode-title"></h2>
-        <p id="dresscode-text"></p>
+        <h2>Dresscode</h2>
+        <p>Tenue florale et pastel recommandée.</p>
       </section>
       <section id="gift" class="tab-panel gift">
-        <h2 id="gift-title"></h2>
-        <p id="gift-link-text"></p>
-        <p id="gift-iban-text"></p>
+        <h2>Cadeau</h2>
+        <p>Visitez notre sélection : <a href="#">https://exemple-boutique.com</a></p>
+        <p><strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123</p>
       </section>
       <section id="capsule" class="tab-panel capsule">
-        <h2 id="capsule-title"></h2>
-        <p id="capsule-text"></p>
-        <em id="capsule-note"></em>
+        <h2>Time Capsule</h2>
+        <p>Déposez un souvenir pour Emilie ; ouverture à ses 18 ans.</p>
+        <em>Merci pour vos messages pleins de tendresse.</em>
       </section>
     </div>
   </div>
   <script>
     const HASH = '8746123202abcf57509bcf4a20b72268cdd94b60629d60d9a5c30bffd45f16d8';
-    const translations = {
-      fr: {
-        authTitle: 'Entrez le mot de passe',
-        authPlaceholder: 'Mot de passe',
-        authBtn: 'OK',
-        headline: 'Welcome Emilie',
-        locationText: '123 Rue des Fleurs, 75000 Paris',
-        locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.999!2d2.292292!3d48.858370!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1',
-        dayTitle: 'Programme de la journée',
-        dayItems: [
-          '10h00 – Accueil et rafraîchissements',
-          '11h00 – Jeux et animations',
-          '13h00 – Apéritif au jardin',
-          '14h00 – Barbecue & déjeuner',
-          '16h00 – Gâteau et toasts',
-          '18h00 – Clôture de la célébration'
-        ],
-        dresscodeTitle: 'Dresscode',
-        dresscodeText: 'Nous vous invitons à porter des tenues florales et pastel pour entrer dans l'esprit printanier.',
-        giftTitle: 'Cadeau',
-        giftLinkText: 'Visitez notre sélection : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
-        giftIbanText: '<strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123',
-        capsuleTitle: 'Time Capsule',
-        capsuleText: 'Déposez un petit souvenir, une photo ou un mot pour Emilie. Nous ouvrirons la capsule à ses 18 ans.',
-        capsuleNote: 'Merci de laisser un message personnel et plein de tendresse.'
-      },
-      de: {
-        authTitle: 'Passwort eingeben',
-        authPlaceholder: 'Passwort',
-        authBtn: 'OK',
-        headline: 'Welcome Emilie',
-        locationText: 'Blumenstraße 123, 10115 Berlin',
-        locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2424.999!2d13.404954!3d52.520008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1',
-        dayTitle: 'Tagesablauf',
-        dayItems: [
-          '10:00 – Empfang & Getränke',
-          '11:00 – Spiele und Aktivitäten',
-          '13:00 – Apéro im Garten',
-          '14:00 – Barbecue & Mittagessen',
-          '16:00 – Kuchen & Toasts',
-          '18:00 – Ende der Feier'
-        ],
-        dresscodeTitle: 'Dresscode',
-        dresscodeText: 'Bitte kleiden Sie sich blumig und in Pastelltönen, um den Frühlingsgeist zu feiern.',
-        giftTitle: 'Geschenk',
-        giftLinkText: 'Entdecken Sie unsere Auswahl : <a href="https://beispiel-shop.de" target="_blank">https://beispiel-shop.de</a>',
-        giftIbanText: '<strong>IBAN :</strong> DE12 3456 7890 1234 5678 90',
-        capsuleTitle: 'Time Capsule',
-        capsuleText: 'Legen Sie eine kleine Erinnerung, ein Foto oder eine Botschaft für Emilie hinein. Wir öffnen die Kapsel zu ihrem 18. Geburtstag.',
-        capsuleNote: 'Hinterlassen Sie bitte liebevolle persönliche Worte.'
-      }
-    };
     let lang = 'fr';
-    document.querySelectorAll('.lang-toggle button').forEach(btn => btn.addEventListener('click', () => {
-      lang = btn.dataset.lang;
-      document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.toggle('active', b===btn));
-      const t = translations[lang];
-      document.getElementById('auth-title').textContent = t.authTitle;
-      document.getElementById('pass').placeholder = t.authPlaceholder;
-      document.getElementById('login-btn').textContent = t.authBtn;
+    document.querySelectorAll('.lang-toggle button').forEach(btn=>btn.addEventListener('click',()=>{
+      lang=btn.dataset.lang;document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active',b===btn));
     }));
-    document.getElementById('login-form').addEventListener('submit', async e => {
-      e.preventDefault();
-      const passInput = document.getElementById('pass');
-      const val = passInput.value.trim();
-      
-      }
-      // SHA-256 check
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
-      const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-      if (hex === HASH) {
-        document.getElementById('login-overlay').style.display = 'none';
-        document.getElementById('content').classList.remove('hidden');
-        init();
-      } else {
-        document.getElementById('err').textContent = lang === 'fr' ? 'Mot de passe incorrect' : 'Falsches Passwort';
-      }
+    document.getElementById('login-btn').addEventListener('click',async()=>{
+      const val=document.getElementById('pass').value.trim();
+      const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(val));
+      const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+      if(hex===HASH){document.getElementById('login-overlay').style.display='none';document.getElementById('content').classList.remove('hidden');}
+      else document.getElementById('err').textContent=lang==='fr'?'Mot de passe incorrect':'Falsches Passwort';
     });
-    function init() {
-      window.scrollTo(0,0);
-      renderData();
-      setupTabs();
-    }
-    function renderData() { /* same rendering logic */ }
-    function setupTabs() {
-      const tabs = document.querySelectorAll('nav button');
-      const panels = document.querySelectorAll('.tab-panel');
-      tabs.forEach(btn => btn.addEventListener('click', () => {
-        tabs.forEach(b => b.classList.toggle('active', b===btn));
-        panels.forEach(p => p.classList.toggle('active', p.id===btn.dataset.tab));
-      }));
-      document.getElementById('mobile-nav').addEventListener('change', e => {
-        const selected = e.target.value;
-        tabs.forEach(b => b.classList.toggle('active', b.dataset.tab===selected));
-        panels.forEach(p => p.classList.toggle('active', p.id===selected));
-      });
-    }
+    document.querySelectorAll('nav button').forEach(btn=>btn.addEventListener('click',()=>{
+      document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b===btn));
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id===btn.dataset.tab));
+    }));
   </script>
 </body>
 </html>
