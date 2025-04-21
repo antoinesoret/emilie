@@ -15,7 +15,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: var(--font);
-      background: var(--bg-pink) url('floral-pattern.png') center/cover fixed;
+      background-color: var(--bg-pink);
       position: relative;
       color: #333;
       min-height: 100vh;
@@ -26,8 +26,11 @@
       content: '';
       position: fixed;
       inset: 0;
-      background: var(--bg-pink);
-      opacity: 0.85;
+      background-image: url('dc69c5ad-73cc-48c7-a44f-e6e2af2d275c.png');
+      background-size: cover;
+      background-position: center;
+      filter: blur(4px) brightness(1.2);
+      opacity: 0.15;
       z-index: -1;
     }
     /* Password overlay */
