@@ -7,73 +7,186 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    :root { --accent:#e46fb3; --bg-pink:#fdeef1; --font:'Josefin Sans',sans-serif; }
-    *,*::before,*::after{box-sizing:border-box; margin:0; padding:0}
-    body { font-family:var(--font); background-color:var(--bg-pink); color:#333;
-      position:relative; min-height:100vh; display:flex; flex-direction:column;
+    :root {
+      --accent: #e46fb3;
+      --bg-pink: #fdeef1;
+      --font: 'Josefin Sans', sans-serif;
     }
-    /* subtle background image */
-    #bg-img{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;
-      opacity:0.12;filter:blur(2px) brightness(1.1);z-index:-1;
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    /* Language toggle always visible */
-    .lang-toggle{position:fixed;top:1rem;right:1rem;display:flex;gap:.5rem;z-index:30}
-    .lang-toggle button{background:#fff;border:2px solid var(--accent);color:var(--accent);
-      padding:.25rem .75rem;border-radius:1.5rem;font-weight:600;cursor:pointer;
-      transition:background .2s,color .2s;
+    body {
+      font-family: var(--font);
+      background-color: var(--bg-pink);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
-    .lang-toggle button.active,.lang-toggle button:hover{
-      background:var(--accent);color:#fff;
+    /* Background image overlay */
+    #bg-img {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.12;
+      filter: blur(2px) brightness(1.1);
+      z-index: -1;
+    }
+    /* Language toggle */
+    .lang-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 30;
+    }
+    .lang-toggle button {
+      background: #fff;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-toggle button.active,
+    .lang-toggle button:hover {
+      background: var(--accent);
+      color: #fff;
     }
     /* Password overlay */
-    #login-overlay{position:fixed;inset:0;background:rgba(253,248,251,.98);
-      display:flex;align-items:center;justify-content:center;z-index:20;
+    #login-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(253, 248, 251, 0.98);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
     }
-    .modal{background:#fff;padding:2rem;border-radius:1.25rem;
-      box-shadow:0 8px 24px rgba(0,0,0,.1);text-align:center;width:90%;max-width:400px;
+    .modal {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
     }
-    .modal h2{margin-bottom:1rem;color:var(--accent);font-size:1.25rem;line-height:1.4}
-    .modal input{width:100%;padding:.75rem 1rem;border:2px solid var(--accent);
-      border-radius:1.5rem;font-size:1rem;margin-bottom:1rem;
+    .modal h2 {
+      margin-bottom: 1rem;
+      color: var(--accent);
+      font-size: 1.25rem;
+      line-height: 1.4;
     }
-    .modal button{width:100%;background:var(--accent);color:#fff;border:none;
-      padding:.75rem;border-radius:1.5rem;font-weight:600;cursor:pointer;font-size:1rem;
+    .modal input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--accent);
+      border-radius: 1.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
     }
-    .modal p.err{color:#c00;height:1.25rem;margin-top:.25rem}
-    /* Layout */
-    header{text-align:center;padding:3rem 1rem 2rem;background:rgba(255,255,255,.85)}
-    header h1{font-size:2rem;color:var(--accent);margin-bottom:1rem}
-    nav{display:flex;background:rgba(255,255,255,.9);margin-top:1rem}
-    nav button{flex:1;padding:1rem;border:none;background:none;
-      font-size:1rem;cursor:pointer;transition:background .2s;
+    .modal button {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
     }
-    nav button.active,nav button:hover{background:var(--accent);color:#fff}
-    .tab-content{flex:1;overflow-y:auto}
-    .tab-panel{display:none;padding:2rem;background:rgba(255,255,255,.8);margin-top:1rem}
-    .tab-panel.active{display:block}
-    /* Specific content styles */
-    .location img{width:100%;border-radius:.5rem;margin-bottom:1rem}
-    .location iframe{width:100%;height:240px;border:0;border-radius:.5rem}
-    .day ul{list-style:none}
-    .day li{position:relative;padding-left:1.25rem;margin-bottom:.75rem}
-    .day li:before{content:'•';position:absolute;left:0;color:var(--accent)}
-    .dresscode p{font-size:1rem;line-height:1.4;margin-top:1rem}
-    .gift p{margin-bottom:1rem}
-    .gift a{color:var(--accent);font-weight:600;text-decoration:none}
-    .gift strong{display:block;font-size:1rem;margin-top:.5rem}
-    footer{display:none}
-    @media(max-width:600px){header h1{font-size:1.5rem}nav button{font-size:.9rem;padding:.75rem}}
+    .modal p.err { color: #c00; height: 1.25rem; margin-top: 0.25rem; }
+    /* Header */
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      background: rgba(255,255,255,0.85);
+    }
+    header h1 {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    /* Tabs styling */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      background: transparent;
+      margin: 1rem auto;
+      padding: 0.5rem;
+      max-width: 90%;
+    }
+    nav button {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      background: #fff;
+      border-radius: 0.75rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    nav button.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    nav button:hover:not(.active) {
+      background: rgba(228,111,179,0.1);
+    }
+    /* Content area */
+    .tab-content {
+      flex: 1;
+      overflow-y: auto;
+    }
+    .tab-panel {
+      display: none;
+      padding: 2rem;
+      background: rgba(255,255,255,0.8);
+      margin: 1rem auto;
+      border-radius: 1rem;
+      max-width: 800px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .tab-panel.active { display: block; }
+    /* Specific content */
+    .location img { width: 100%; border-radius: 0.5rem; margin-bottom: 1rem; }
+    .location iframe { width: 100%; height: 240px; border: 0; border-radius: 0.5rem; }
+    .day ul { list-style: none; padding-left: 0; }
+    .day li { position: relative; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    .day li:before { content: '•'; position: absolute; left: 0; color: var(--accent); }
+    .dresscode p { font-size: 1rem; line-height: 1.4; margin-top: 1rem; }
+    .gift p { margin-bottom: 1rem; }
+    .gift a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .gift strong { display: block; font-size: 1rem; margin-top: 0.5rem; }
+    /* Time Capsule section */
+    .capsule p { font-size: 1rem; line-height: 1.5; }
+    .capsule em { display: block; margin-top: 0.5rem; color: #555; }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem; }
+      nav button { font-size: 0.9rem; padding: 0.5rem 0.75rem; }
+      .tab-panel { padding: 1rem; }
+    }
   </style>
 </head>
 <body>
-  <!-- Background -->
   <img src="floral-pattern.png" id="bg-img" alt="Background" />
-  <!-- Language -->
   <div class="lang-toggle">
     <button data-lang="fr" class="active">FR</button>
     <button data-lang="de">DE</button>
   </div>
-  <!-- Login -->
   <div id="login-overlay">
     <div class="modal">
       <h2 id="auth-title">Entrez le mot de passe</h2>
@@ -82,14 +195,14 @@
       <p id="err" class="err"></p>
     </div>
   </div>
-  <!-- Content -->
-  <div id="content" class="hidden" style="display:flex;flex-direction:column;flex:1;">
+  <div id="content" class="hidden" style="display:flex; flex-direction:column; flex:1;">
     <header><h1 id="headline"></h1></header>
     <nav>
       <button data-tab="location" class="active">Lieu</button>
       <button data-tab="day">Journée</button>
       <button data-tab="dresscode">Dresscode</button>
       <button data-tab="gift">Cadeau</button>
+      <button data-tab="capsule">Time Capsule</button>
     </nav>
     <div class="tab-content">
       <section id="location" class="tab-panel location active">
@@ -110,31 +223,129 @@
         <p id="gift-link-text"></p>
         <p id="gift-iban-text"></p>
       </section>
+      <section id="capsule" class="tab-panel capsule">
+        <h2 id="capsule-title"></h2>
+        <p id="capsule-text"></p>
+        <em id="capsule-note"></em>
+      </section>
     </div>
   </div>
   <script>
-    const HASH='8746123202abcf57509bcf4a20b72268cdd94b60629d60d9a5c30bffd45f16d8';
-    const translations={
-      fr:{authTitle:'Entrez le mot de passe',authPlaceholder:'Mot de passe',authBtn:'OK'},
-      de:{authTitle:'Passwort eingeben',authPlaceholder:'Passwort',authBtn:'OK'}
+    const HASH = '8746123202abcf57509bcf4a20b72268cdd94b60629d60d9a5c30bffd45f16d8';
+    const translations = {
+      fr: {
+        authTitle: 'Entrez le mot de passe',
+        authPlaceholder: 'Mot de passe',
+        authBtn: 'OK',
+        headline: 'Célébrons avec des fleurs !',
+        locationText: '123 Rue des Fleurs, 75000 Paris',
+        dayTitle: 'Programme de la journée',
+        dayItems: [
+          '10h00 – Accueil & boissons',
+          '11h00 – Jeux et activités',
+          '13h00 – Apéritif',
+          '14h00 – Barbecue & repas',
+          '16h00 – Gâteau & toasts',
+          '18h00 – Fin de la fête'
+        ],
+        dresscodeTitle: 'Dresscode',
+        dresscodeText: 'Merci de porter une tenue florale (motifs fleurs, pastel, léger).',
+        giftTitle: 'Cadeau',
+        giftLinkText: 'Sélection de la boutique : <a href="https://exemple-vendor.com" target="_blank">Visiter</a>',
+        giftIbanText: '<strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123',
+        capsuleTitle: 'Time Capsule',
+        capsuleText: 'Déposez un petit souvenir, un mot ou une photo pour bébé. Nous ouvrirons cette capsule quand elle aura 18 ans.',
+        capsuleNote: 'Merci de garder votre contribution discrète et authentique.'
+      },
+      de: {
+        authTitle: 'Passwort eingeben',
+        authPlaceholder: 'Passwort',
+        authBtn: 'OK',
+        headline: 'Lasst uns mit Blumen feiern!',
+        locationText: 'Blumenstraße 123, 10115 Berlin',
+        dayTitle: 'Ablauf des Tages',
+        dayItems: [
+          '10:00 – Empfang & Getränke',
+          '11:00 – Spiele und Aktivitäten',
+          '13:00 – Apéro',
+          '14:00 – BBQ & Essen',
+          '16:00 – Kuchen & Anstoßen',
+          '18:00 – Ende der Feier'
+        ],
+        dresscodeTitle: 'Dresscode',
+        dresscodeText: 'Bitte kleiden Sie sich blumig (Blumenmuster, Pastelltöne).',
+        giftTitle: 'Geschenk',
+        giftLinkText: 'Auswahl im Shop: <a href="https://exemple-vendor.com" target="_blank">Besuchen</a>',
+        giftIbanText: '<strong>IBAN :</strong> DE12 3456 7890 1234 5678 90',
+        capsuleTitle: 'Time Capsule',
+        capsuleText: 'Legt einen kleinen Schatz, einen Brief oder ein Foto hinein. Die Öffnung erfolgt an ihrem 18. Geburtstag.',
+        capsuleNote: 'Bitte hinterlassen Sie eine persönliche und wertvolle Erinnerung.'
+      }
     };
-    let lang='fr';
-    document.querySelectorAll('.lang-toggle button').forEach(btn=>btn.onclick=()=>{
-      lang=btn.dataset.lang;
-      document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active',b===btn));
-      const t=translations[lang];
-      document.getElementById('auth-title').textContent=t.authTitle;
-      document.getElementById('pass').placeholder=t.authPlaceholder;
-      document.getElementById('login-btn').textContent=t.authBtn;
+    let lang = 'fr';
+    // Language toggle
+    document.querySelectorAll('.lang-toggle button').forEach(btn => btn.addEventListener('click', () => {
+      lang = btn.dataset.lang;
+      document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.toggle('active', b === btn));
+      const t = translations[lang];
+      document.getElementById('auth-title').textContent = t.authTitle;
+      document.getElementById('pass').placeholder = t.authPlaceholder;
+      document.getElementById('login-btn').textContent = t.authBtn;
+    }));
+    // Auth
+    async function sha256(txt) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+    const overlay = document.getElementById('login-overlay');
+    const content = document.getElementById('content');
+    document.getElementById('login-btn').addEventListener('click', async () => {
+      const val = document.getElementById('pass').value.trim();
+      if (await sha256(val) === HASH) {
+        overlay.style.display = 'none';
+        content.classList.remove('hidden');
+        init();
+      } else {
+        document.getElementById('err').textContent = lang === 'fr' ? 'Mot de passe incorrect' : 'Falsches Passwort';
+      }
     });
-    async function sha256(txt){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(txt));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');}
-    const overlay=document.getElementById('login-overlay'),content=document.getElementById('content');
-    document.getElementById('login-btn').onclick=async()=>{
-      if(await sha256(document.getElementById('pass').value.trim())===HASH){overlay.style.display='none';content.classList.remove('hidden');init();}else document.getElementById('err').textContent=lang==='fr'?'Mot de passe incorrect':'Falsches Passwort';
-    };
-    function init(){renderData();setupTabs();}
-    function renderData(){/* same as before for content tabs */}
-    function setupTabs(){/* same tab logic */}
+    // Init
+    function init() {
+      renderData();
+      setupTabs();
+    }
+    // Render content
+    function renderData() {
+      const t = translations[lang];
+      document.getElementById('headline').textContent = t.headline;
+      // Location
+      document.getElementById('location-text').textContent = t.locationText;
+      document.getElementById('location-map').src = t.locationMap || '';
+      // Day
+      document.getElementById('day-title').textContent = t.dayTitle;
+      const dayList = document.getElementById('day-list'); dayList.innerHTML = '';
+      t.dayItems.forEach(item => { const li = document.createElement('li'); li.textContent = item; dayList.appendChild(li); });
+      // Dresscode
+      document.getElementById('dresscode-title').textContent = t.dresscodeTitle;
+      document.getElementById('dresscode-text').textContent = t.dresscodeText;
+      // Gift
+      document.getElementById('gift-title').textContent = t.giftTitle;
+      document.getElementById('gift-link-text').innerHTML = t.giftLinkText;
+      document.getElementById('gift-iban-text').innerHTML = t.giftIbanText;
+      // Capsule
+      document.getElementById('capsule-title').textContent = t.capsuleTitle;
+      document.getElementById('capsule-text').textContent = t.capsuleText;
+      document.getElementById('capsule-note').textContent = t.capsuleNote;
+    }
+    // Tabs
+    function setupTabs() {
+      const tabs = document.querySelectorAll('nav button');
+      const panels = document.querySelectorAll('.tab-panel');
+      tabs.forEach(btn => btn.addEventListener('click', () => {
+        tabs.forEach(b => b.classList.toggle('active', b === btn));
+        panels.forEach(p => p.classList.toggle('active', p.id === btn.dataset.tab));
+      }));
+    }
   </script>
 </body>
 </html>
