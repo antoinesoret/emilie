@@ -15,26 +15,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: var(--font);
+      /* combine solid and image with blend mode for subtle effect */
       background-color: var(--bg-pink);
-      position: relative;
+      background-image: url('floral-pattern.png');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: cover;
+      background-blend-mode: lighten;
       color: #333;
+      position: relative;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      /* use a consistent filename for the floral background */
-      background-image: url('floral-pattern.png');
-      background-size: contain;
-      background-position: center top;
-      background-repeat: no-repeat;
-      filter: blur(2px) brightness(1.1);
-      opacity: 0.12;
-      z-index: -1;
-    }
+    
     /* Password overlay */
     #login-overlay {
       position: fixed; inset: 0;
