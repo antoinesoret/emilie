@@ -1,124 +1,300 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Invitation à la Célébration</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     :root {
       --accent: #e46fb3;
-      --bg: #fdeef1;
+      --bg-pink: #fdeef1;
       --font: 'Poppins', sans-serif;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: var(--font);
-      background: var(--bg) url('floral-pattern.png') center/cover fixed;
+      background: var(--bg-pink) url('floral-pattern.png') center/cover fixed;
+      position: relative;
       color: #333;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
     }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: var(--bg-pink);
+      opacity: 0.85;
+      z-index: -1;
+    }
+    /* Password overlay */
+    #login-overlay {
+      position: fixed; inset: 0;
+      background: rgba(253,238,241,0.98);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 20;
+    }
+    .modal {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 90%; max-width: 400px;
+    }
+    .modal h2 {
+      margin-bottom: 1rem;
+      color: var(--accent);
+      font-size: 1.25rem;
+      line-height: 1.4;
+    }
+    .modal input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--accent);
+      border-radius: 1.5rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .modal button {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .modal p.err { color: #c00; height: 1.25rem; }
+    /* Language toggle */
+    .lang-toggle {
+      position: fixed; top: 1rem; right: 1rem;
+      display: flex; gap: 0.5rem; z-index: 30;
+    }
+    .lang-toggle button {
+      background: #fff;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-toggle button.active,
+    .lang-toggle button:hover {
+      background: var(--accent);
+      color: #fff;
+    }
     header {
       text-align: center;
       padding: 2rem 1rem;
       background: rgba(255,255,255,0.85);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    header h1 { font-size: 2rem; color: var(--accent); }
+    header h1 {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
     nav {
       display: flex;
-      justify-content: center;
       background: rgba(255,255,255,0.9);
     }
     nav button {
-      flex: 1;
-      padding: 1rem;
-      border: none;
-      background: none;
+      flex: 1; padding: 1rem;
+      border: none; background: none;
+      font-family: var(--font);
       font-size: 1rem;
       cursor: pointer;
-      transition: background .2s;
+      transition: background 0.2s;
     }
     nav button.active,
     nav button:hover {
       background: var(--accent);
       color: #fff;
     }
-    .tab-content {
-      flex: 1;
-      padding: 1.5rem;
-      background: rgba(255,255,255,0.8);
-    }
-    .tab-panel { display: none; }
+    .tab-content { flex: 1; overflow-y: auto; }
+    .tab-panel { display: none; padding: 1.5rem; background: rgba(255,255,255,0.8); }
     .tab-panel.active { display: block; }
-    /* Responsive */
-    @media(max-width:600px) {
-      header h1 { font-size: 1.5rem; }
-      nav button { font-size: .9rem; padding: .75rem; }
-    }
-    /* Content styles */
-    .location img { width: 100%; border-radius: .5rem; margin-bottom: 1rem; }
-    .location iframe { width: 100%; height: 200px; border:0; border-radius: .5rem; }
+    /* Location */
+    .location img { width: 100%; border-radius: 0.5rem; margin-bottom: 1rem; }
+    .location iframe { width: 100%; height: 240px; border: 0; border-radius: 0.5rem; }
+    /* Day */
     .day ul { list-style: none; }
-    .day li { margin-bottom: .5rem; padding-left: 1.25rem; position: relative; }
-    .day li:before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
+    .day li { position: relative; padding-left: 1.25rem; margin-bottom: 0.75rem; }
+    .day li:before { content: '•'; position: absolute; left: 0; color: var(--accent); }
+    /* Dresscode */
+    .dresscode p { font-size: 1rem; line-height: 1.4; }
+    /* Gift */
+    .gift p { margin-bottom: 1rem; }
+    .gift a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    .gift strong { display: block; font-size: 1rem; margin-top: 0.5rem; }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.5rem; }
+      nav button { font-size: 0.9rem; padding: 0.75rem; }
     }
-    .dresscode p, .gift p { margin-bottom: 1rem; }
-    .gift a { color: var(--accent); text-decoration: none; font-weight:600; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Invitation à Célébrer</h1>
-  </header>
-  <nav>
-    <button data-tab="location" class="active">Lieu</button>
-    <button data-tab="day">La Journée</button>
-    <button data-tab="dresscode">Dresscode</button>
-    <button data-tab="gift">Cadeau</button>
-  </nav>
-  <div class="tab-content">
-    <section id="location" class="tab-panel active location">
-      <img src="location-screenshot.jpg" alt="Capture du lieu" />
-      <p>Adresse: 123 Rue des Fleurs, 75000 Paris</p>
-      <iframe src="{{GoogleMapsEmbed}}" loading="lazy" allowfullscreen></iframe>
-    </section>
-    <section id="day" class="tab-panel day">
-      <h2>Programme de la journée</h2>
-      <ul>
-        <li>10h00 – Accueil & boissons</li>
-        <li>11h00 – Jeux et activités</li>
-        <li>13h00 – Apéritif</li>
-        <li>14h00 – Barbecue & repas</li>
-        <li>16h00 – Gâteau & toasts</li>
-        <li>18h00 – Fin de la fête</li>
-      </ul>
-    </section>
-    <section id="dresscode" class="tab-panel dresscode">
-      <h2>Dresscode</h2>
-      <p>Merci de jouer le thème : tenue florale (motifs fleurs, pastel, léger et printanier).</p>
-    </section>
-    <section id="gift" class="tab-panel gift">
-      <h2>Cadeau</h2>
-      <p>Vous pouvez trouver la sélection ici : <a href="https://exemple-vendor.com" target="_blank">Notre partenaire</a>.</p>
-      <p>Pour vos contributions, voici notre IBAN : <strong>FR76 1234 5678 9012 3456 7890 123</strong></p>
-    </section>
+  <!-- Password -->
+  <div id="login-overlay">
+    <div class="modal">
+      <h2>Entrez le mot de passe<br/>Passwort eingeben</h2>
+      <input type="password" id="pass" placeholder="Mot de passe / Passwort" />
+      <button id="login-btn">OK</button>
+      <p id="err" class="err"></p>
+    </div>
+  </div>
+  <!-- Language -->
+  <div class="lang-toggle">
+    <button data-lang="fr" class="active">FR</button>
+    <button data-lang="de">DE</button>
+  </div>
+  <!-- Main -->
+  <div id="content" class="hidden" style="display:flex; flex-direction:column; flex:1;">
+    <header>
+      <h1 id="headline"></h1>
+    </header>
+    <nav>
+      <button data-tab="location" class="active">Lieu</button>
+      <button data-tab="day">Journée</button>
+      <button data-tab="dresscode">Dresscode</button>
+      <button data-tab="gift">Cadeau</button>
+    </nav>
+    <div class="tab-content">
+      <section id="location" class="tab-panel location active">
+        <img src="location-screenshot.jpg" alt="Lieu" />
+        <p id="location-text"></p>
+        <iframe id="location-map" src="" loading="lazy"></iframe>
+      </section>
+      <section id="day" class="tab-panel day">
+        <h2 id="day-title"></h2>
+        <ul id="day-list"></ul>
+      </section>
+      <section id="dresscode" class="tab-panel dresscode">
+        <h2 id="dresscode-title"></h2>
+        <p id="dresscode-text"></p>
+      </section>
+      <section id="gift" class="tab-panel gift">
+        <h2 id="gift-title"></h2>
+        <p id="gift-link-text"></p>
+        <p id="gift-iban-text"></p>
+      </section>
+    </div>
+    <footer id="footer"></footer>
   </div>
   <script>
-    const tabs = document.querySelectorAll('nav button');
-    const panels = document.querySelectorAll('.tab-panel');
-    tabs.forEach(btn => btn.addEventListener('click', () => {
-      const target = btn.dataset.tab;
-      tabs.forEach(b => b.classList.toggle('active', b===btn));
-      panels.forEach(p => p.id===target ? p.classList.add('active') : p.classList.remove('active'));
-    }));
+    const HASH = '8746123202abcf57509bcf4a20b72268cdd94b60629d60d9a5c30bffd45f16d8';
+    // Texts FR/DE
+    const data = {
+      fr: {
+        headline: 'Célébrons avec des fleurs !',
+        locationText: '123 Rue des Fleurs, 75000 Paris',
+        locationMap: '{{GoogleMapsEmbed}}',
+        dayTitle: 'Programme de la journée',
+        dayItems: [
+          '10h00 – Accueil & boissons',
+          '11h00 – Jeux et activités',
+          '13h00 – Apéritif',
+          '14h00 – Barbecue & repas',
+          '16h00 – Gâteau & toasts',
+          '18h00 – Fin de la fête'
+        ],
+        dresscodeTitle: 'Dresscode',
+        dresscodeText: 'Merci de porter une tenue florale (motifs fleurs, pastel, léger).',
+        giftTitle: 'Cadeau',
+        giftLinkText: 'Sélection de la boutique : <a href="https://exemple-vendor.com" target="_blank">Visiter</a>',
+        giftIbanText: 'IBAN : <strong>FR76 1234 5678 9012 3456 7890 123</strong>'
+      },
+      de: {
+        headline: 'Lasst uns mit Blumen feiern!',
+        locationText: 'Blumenstraße 123, 10115 Berlin',
+        locationMap: '{{GoogleMapsEmbed}}',
+        dayTitle: 'Ablauf des Tages',
+        dayItems: [
+          '10:00 – Empfang & Getränke',
+          '11:00 – Spiele und Aktivitäten',
+          '13:00 – Apéro',
+          '14:00 – BBQ & Essen',
+          '16:00 – Kuchen & Anstoßen',
+          '18:00 – Ende der Feier'
+        ],
+        dresscodeTitle: 'Dresscode',
+        dresscodeText: 'Bitte kleiden Sie sich blumig (Blumenmuster, Pastelltöne).',
+        giftTitle: 'Geschenk',
+        giftLinkText: 'Auswahl im Shop: <a href="https://exemple-vendor.com" target="_blank">Besuchen</a>',
+        giftIbanText: 'IBAN : <strong>DE12 3456 7890 1234 5678 90</strong>'
+      }
+    };
+    let lang = 'fr';
+    // Auth
+    const overlay = document.getElementById('login-overlay');
+    const content = document.getElementById('content');
+    async function sha256(txt) {
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+    document.getElementById('login-btn').onclick = async () => {
+      const val = document.getElementById('pass').value.trim();
+      if (await sha256(val) === HASH) {
+        sessionStorage.setItem('unlocked', '1');
+        overlay.style.display = 'none';
+        content.classList.remove('hidden');
+        init();
+      } else {
+        document.getElementById('err').textContent = 'Mot de passe incorrect / Falsches Passwort';
+      }
+    };
+    window.addEventListener('load', () => {
+      if (sessionStorage.getItem('unlocked')) {
+        overlay.style.display = 'none'; content.classList.remove('hidden'); init();
+      }
+    });
+    // Init page data
+    function init() {
+      renderData();
+      setupTabs();
+      setupLang();
+    }
+    function renderData() {
+      const d = data[lang];
+      document.getElementById('headline').textContent = d.headline;
+      document.getElementById('location-text').textContent = d.locationText;
+      document.getElementById('location-map').src = d.locationMap;
+      document.getElementById('day-title').textContent = d.dayTitle;
+      const ul = document.getElementById('day-list'); ul.innerHTML = '';
+      d.dayItems.forEach(item => {
+        const li = document.createElement('li'); li.textContent = item; ul.appendChild(li);
+      });
+      document.getElementById('dresscode-title').textContent = d.dresscodeTitle;
+      document.getElementById('dresscode-text').textContent = d.dresscodeText;
+      document.getElementById('gift-title').textContent = d.giftTitle;
+      document.getElementById('gift-link-text').innerHTML = d.giftLinkText;
+      document.getElementById('gift-iban-text').innerHTML = d.giftIbanText;
+    }
+    // Tabs
+    function setupTabs() {
+      const tabs = document.querySelectorAll('nav button');
+      const panels = document.querySelectorAll('.tab-panel');
+      tabs.forEach(btn => btn.onclick = () => {
+        tabs.forEach(b => b.classList.toggle('active', b===btn));
+        panels.forEach(p => p.classList.toggle('active', p.id===btn.dataset.tab));
+      });
+    }
+    // Language switch
+    function setupLang() {
+      const btns = document.querySelectorAll('.lang-toggle button');
+      btns.forEach(btn => btn.onclick = () => {
+        lang = btn.dataset.lang;
+        btns.forEach(b => b.classList.toggle('active', b===btn));
+        renderData();
+      });
+    }
   </script>
 </body>
 </html>
