@@ -20,11 +20,17 @@
     body {
       font-family: var(--font);
       background-color: var(--bg-pink);
+      /* CSS background for floral pattern */
+      background-image: url('floral-pattern.png');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
       color: #333;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       position: relative;
+    }
     }
     /* Background image overlay */
     #bg-img {
@@ -129,19 +135,19 @@
     }
     nav button {
       flex: 1;
-      padding: 0.75rem 1rem;
+      padding: 1rem 1.5rem; /* increased size */
       border: none;
       background: #fff;
-      border-radius: 0.75rem;
-      font-size: 1rem;
+      border-radius: 1rem; /* more rounded */
+      font-size: 1.05rem;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* stronger shadow */
     }
     nav button.active {
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2); /* deeper shadow */
     }
     nav button:hover:not(.active) {
       background: rgba(228,111,179,0.1);
@@ -182,7 +188,7 @@
   </style>
 </head>
 <body>
-  <img src="floral-pattern.png" id="bg-img" alt="Background" />
+  <!-- Floral background handled via CSS background-image -->
   <div class="lang-toggle">
     <button data-lang="fr" class="active">FR</button>
     <button data-lang="de">DE</button>
