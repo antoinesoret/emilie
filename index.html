@@ -9,6 +9,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    /* Fixed background to avoid mobile attachment issues */
+    #bg-fixed {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-pink) url('floral-pattern.png') center top/cover no-repeat;
+      z-index: -1;
+    }
+
     :root {
       --accent-primary: #833947;
       --accent-secondary: #df9ac5;
