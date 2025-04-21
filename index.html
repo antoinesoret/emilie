@@ -114,6 +114,9 @@
     .gift a { color: var(--accent-primary); font-weight: 600; text-decoration: none; }
     .gift strong { display: block; font-size: 1rem; margin-top: .5rem; }
     @media (max-width: 600px) {
+      /* Mobile: scroll background with content */
+      body { background-attachment: scroll; }
+      nav { display: none; }
       nav { display: none; }
       .mobile-nav { display: flex; }
       header { padding: 4rem 1rem 1rem; }
@@ -198,6 +201,7 @@
       if(hex===HASH){
         document.getElementById('login-overlay').style.display='none';
         document.getElementById('content').classList.remove('hidden');
+        window.scrollTo(0,0); // ensure top
       } else {
         document.getElementById('err').textContent=lang==='fr'?'Mot de passe incorrect':'Falsches Passwort';
       }
@@ -208,6 +212,8 @@
       // Activate both navs
       document.querySelectorAll('nav button, .mobile-nav button').forEach(b => b.classList.toggle('active', b.dataset.tab===tab));
       document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id===tab));
+      // Reset scroll inside content
+      document.querySelector('.tab-content').scrollTop = 0;
     }));
   </script>
 </body>
