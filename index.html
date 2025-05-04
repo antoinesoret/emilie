@@ -89,42 +89,7 @@
     nav button:hover:not(.active) { background: var(--accent-secondary); color: #fff; }
     /* Mobile bottom nav */
     .mobile-nav { display: none; }
-    /* Desktop: hide mobile nav */
-    @media (min-width: 601px) { .mobile-nav { display: none !important; } }
-    .mobile-nav button { flex: 1; padding: 1rem 0;
-      border: none; background: #fff; color: var(--accent-primary);
-      font-size: 1rem; cursor: pointer;
-      transition: background .2s, color .2s;
-    }
-    .mobile-nav { position: fixed; bottom: 0; left: 0;
-      width: 100%; display: flex;
-      box-shadow: 0 -2px 8px rgba(0,0,0,.1);
-      background: rgba(255,255,255,.9); z-index: 50;
-    }
-    .mobile-nav button.active { background: var(--accent-secondary); color: #fff; }
-    .tab-content { padding: 2rem 1rem; margin-bottom: 4.5rem; flex: 1; overflow: visible; }
-    .tab-panel { display: none; background: transparent;
-      border-radius: 1rem; padding: 2rem;
-      margin: 1rem auto 2rem; max-width: 800px;
-    }
-    .tab-panel.active { display: block; }
-    /* Content placeholders */
-    .location img, .location iframe {
-      width: 100%;
-      /* Responsive height, 16:9 ratio */
-      aspect-ratio: 16 / 9;
-      border: 0;
-      border-radius: .5rem;
-      margin-bottom: 1rem;
-    }
-    .location iframe { height: 300px; }
-    .day ul { list-style: none; padding: 0; }
-    .day li { position: relative; padding-left: 1.25rem; margin-bottom: .75rem; }
-    .day li:before { content: '•'; position: absolute; left: 0; color: var(--accent-primary); }
-    .dresscode p, .gift p, .capsule p { font-size: 1rem; line-height: 1.4; margin: 1rem 0; }
-    .gift a { color: var(--accent-primary); font-weight: 600; text-decoration: none; }
-    .gift strong { display: block; font-size: 1rem; margin-top: .5rem; }
-    @media (max-width:600px) {
+    @media (max-width: 600px) {
       nav { display: none; }
       .mobile-nav { display: flex; }
       header { padding: 4rem 1rem 1rem; }
@@ -170,7 +135,7 @@
     </div>
     <div class="tab-content">
       <section id="location" class="tab-panel active">
-        <img src="location-screenshot.jpg" alt="Lieu" />
+        <img src="location.jpeg" alt="Lieu" />
         <p id="location-text"></p>
         <iframe id="location-map" src="" loading="lazy"></iframe>
       </section>
@@ -198,35 +163,35 @@
     const HASH = '8746123202abcf57509bcf4a20b72268cdd94b60629d60d9a5c30bffd45f16d8';
     const translations = {
       fr: {
-        nav: ['Lieu','Journée','Dresscode','Cadeau','Time Capsule'],
+        nav: ['Lieu & Date','Journée','Dresscode','Cadeau','Time Capsule'],
         headline: 'Welcome Emilie',
-        locationText: '123 Rue des Fleurs, 75000 Paris',
+        locationText: '<strong>Date :</strong> Samedi 12 juin 2025 à 14h<br/><strong>Adresse :</strong> 123 Rue des Fleurs, 75000 Paris<br/><strong>Parking :</strong> Parking gratuit au 125 Rue des Roses<br/><strong>Accès :</strong> 10 min de marche à pied.',
         locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.9637240031325!2d8.613799439867021!3d47.30973261692824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa50ecb657c91%3A0xcbbdc687ac5d3090!2sForsthaus%20%2F%20Waldh%C3%BCtte%20Erlenbach!5e0!3m2!1sfr!2sch!4v1746354413327!5m2!1sfr!2sch',
         dayTitle: 'Programme de la journée',
-        dayItems: ['10h00 – Accueil et rafraîchissements','11h00 – Jeux et animations','13h00 – Apéritif au jardin','14h00 – Barbecue & déjeuner','16h00 – Gâteau et toasts','18h00 – Clôture de la célébration'],
+        dayItems: ['10h00 – Accueil et rafraîchissements','11h00 – Jeux et animations','13h00 – Apéritif au jardin','14h00 – Barbecue & déjeuner','16h00 – Gâteau et toasts','18h00 – Clôture de la célébration'],
         dresscodeTitle: 'Dresscode',
         dresscodeText: 'Tenue florale et pastel recommandée.',
         giftTitle: 'Cadeau',
         giftLinkText: 'Visitez notre sélection : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
-        giftIbanText: '<strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123',
+        giftIbanText: '<strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123',
         capsuleTitle: 'Time Capsule',
-        capsuleText: 'Déposez un souvenir pour Emilie ; ouverture à ses 18 ans.',
+        capsuleText: 'Déposez un souvenir pour Emilie ; ouverture à ses 18 ans.',
         capsuleNote: 'Merci pour vos messages pleins de tendresse.'
       },
       de: {
-        nav: ['Ort','Tagesablauf','Dresscode','Geschenk','Zeitkapsel'],
+        nav: ['Ort & Datum','Tagesablauf','Dresscode','Geschenk','Zeitkapsel'],
         headline: 'Willkommen Emilie',
-        locationText: 'Blumenstraße 123, 10115 Berlin',
+        locationText: '<strong>Datum :</strong> Samstag, 12. Juni 2025 um 14 Uhr<br/><strong>Adresse :</strong> Blumenstraße 123, 10115 Berlin<br/><strong>Parken :</strong> Kostenloser Parkplatz bei Blumenstraße 125<br/><strong>Zu Fuß :</strong> 10 Minuten Gehweg.',
         locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.9637240031325!2d8.613799439867021!3d47.30973261692824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa50ecb657c91%3A0xcbbdc687ac5d3090!2sForsthaus%20%2F%20Waldh%C3%BCtte%20Erlenbach!5e0!3m2!1sfr!2sch!4v1746354413327!5m2!1sfr!2sch',
         dayTitle: 'Tagesablauf',
-        dayItems: ['10:00 – Empfang und Getränke','11:00 – Spiele und Aktivitäten','13:00 – Apéro im Garten','14:00 – Barbecue & Mittagessen','16:00 – Kuchen & Anstoßen','18:00 – Ende der Feier'],
+        dayItems: ['10:00 – Empfang und Getränke','11:00 – Spiele und Aktivitäten','13:00 – Apéro im Garten','14:00 – Barbecue & Mittagessen','16:00 – Kuchen & Anstoßen','18:00 – Ende der Feier'],
         dresscodeTitle: 'Dresscode',
         dresscodeText: 'Bitte tragen Sie blumige und pastellfarbene Kleidung.',
         giftTitle: 'Geschenk',
         giftLinkText: 'Entdecken Sie unsere Auswahl : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
-        giftIbanText: '<strong>IBAN :</strong> DE12 3456 7890 1234 5678 90',
+        giftIbanText: '<strong>IBAN :</strong> DE12 3456 7890 1234 5678 90',
         capsuleTitle: 'Zeitkapsel',
-        capsuleText: 'Legen Sie einen kleinen Schatz für Emilie hinein ; Öffnung zu ihrem 18. Geburtstag.',
+        capsuleText: 'Legen Sie einen kleinen Schatz für Emilie hinein ; Öffnung zu ihrem 18. Geburtstag.',
         capsuleNote: 'Vielen Dank für Ihre liebevollen Nachrichten.'
       }
     };
