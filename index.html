@@ -9,14 +9,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet" />
   <style>
-    /* Fixed background to avoid mobile attachment issues */
-    #bg-fixed {
-      position: fixed;
-      inset: 0;
-      background: var(--bg-pink) url('floral-pattern.png') center top/cover no-repeat;
-      z-index: -1;
-    }
-
     :root {
       --accent-primary: #833947;
       --accent-secondary: #df9ac5;
@@ -25,39 +17,42 @@
       --font-main: 'Josefin Sans', sans-serif;
       --font-title: 'Brittany', cursive;
     }
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
     body {
       font-family: var(--font-main);
-      background: var(--bg-pink) url('floral-pattern.png') center top/cover no-repeat; /* background scrolls with page */
+      background: var(--bg-pink);
       color: #333;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       position: relative;
+      overflow-x: hidden;
+    }
+    /* Fixed background layer */
+    #bg-fixed {
+      position: fixed; inset: 0;
+      background: url('floral-pattern.png') center top/cover no-repeat;
+      z-index: -1;
     }
     .lang-toggle {
       position: fixed; top: 1rem; right: 1rem;
-      display: flex; gap: 0.5rem; z-index: 100;
+      display: flex; gap: .5rem; z-index: 100;
     }
     .lang-toggle button {
       background: #fff; border: 2px solid var(--accent-primary);
-      color: var(--accent-primary); padding: 0.5rem 1rem;
+      color: var(--accent-primary); padding: .5rem 1rem;
       border-radius: 2rem; font-weight: 600; cursor: pointer;
       transition: background .2s, color .2s;
     }
     .lang-toggle button.active,
     .lang-toggle button:hover { background: var(--accent-primary); color: #fff; }
     #login-overlay { position: fixed; inset: 0;
-      background: rgba(253,248,251,0.98); display: flex;
+      background: rgba(253,248,251,.98); display: flex;
       align-items: center; justify-content: center; z-index: 200;
     }
     .modal { background: #fff; padding: 2rem;
-      border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,.1);
       text-align: center; width: 90%; max-width: 400px;
     }
     .modal h2 { font-family: var(--font-title);
@@ -74,88 +69,77 @@
       font-weight: 600; cursor: pointer; font-size: 1rem;
     }
     .modal p.err { color: #c00; height: 1.25rem; margin-top: .5rem; }
-    header { text-align: center; padding: 6rem 1rem 2rem;
-      background: transparent; z-index: 50;
-    }
+    header { text-align: center; padding: 6rem 1rem 2rem; z-index: 50; }
     header h1 { font-family: var(--font-title);
       font-size: 4rem; color: var(--accent-primary);
     }
-    /* Desktop tabs */
+    /* Desktop navigation tabs */
     nav { display: flex; justify-content: center;
       gap: 1rem; margin: 2rem auto 0; max-width: 90%; z-index: 50;
     }
     nav button { flex: 1; padding: 1.5rem 3rem;
       border: none; background: #fff; border-radius: 1rem;
       font-size: 1.3rem; cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
       transition: background .3s, color .3s, box-shadow .3s;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
     }
     nav button.active { background: var(--accent-tertiary);
-      color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.3);
     }
     nav button:hover:not(.active) { background: var(--accent-secondary); color: #fff; }
-    /* Mobile bottom navigation */
+    /* Mobile bottom nav */
     .mobile-nav { display: none; }
-    .mobile-nav button {
-      flex: 1; padding: 1rem 0; border: none;
-      background: #fff; color: var(--accent-primary);
+    .mobile-nav button { flex: 1; padding: 1rem 0;
+      border: none; background: #fff; color: var(--accent-primary);
       font-size: 1rem; cursor: pointer;
       transition: background .2s, color .2s;
     }
     .mobile-nav { position: fixed; bottom: 0; left: 0;
       width: 100%; display: flex;
-      box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-      background: rgba(255,255,255,0.9); z-index: 50;
+      box-shadow: 0 -2px 8px rgba(0,0,0,.1);
+      background: rgba(255,255,255,.9); z-index: 50;
     }
     .mobile-nav button.active { background: var(--accent-secondary); color: #fff; }
-    .tab-content {
-      /* Let page scroll naturally */
-      overflow: visible;
-      padding: 2rem 1rem;
-    }
+    .tab-content { padding: 2rem 1rem; margin-bottom: 4.5rem; flex: 1; overflow: visible; }
     .tab-panel { display: none; background: transparent;
       border-radius: 1rem; padding: 2rem;
       margin: 1rem auto 2rem; max-width: 800px;
     }
     .tab-panel.active { display: block; }
-    /* Content styles */
-    .location img { width: 100%; border-radius: .5rem; margin-bottom: 1rem; }
-    .location iframe { width: 100%; height: 300px; border: 0; border-radius: .5rem; }
+    /* Content placeholders */
+    .location img, .location iframe { width: 100%; border-radius: .5rem; margin-bottom: 1rem; }
+    .location iframe { height: 300px; }
     .day ul { list-style: none; padding: 0; }
     .day li { position: relative; padding-left: 1.25rem; margin-bottom: .75rem; }
     .day li:before { content: '•'; position: absolute; left: 0; color: var(--accent-primary); }
     .dresscode p, .gift p, .capsule p { font-size: 1rem; line-height: 1.4; margin: 1rem 0; }
     .gift a { color: var(--accent-primary); font-weight: 600; text-decoration: none; }
     .gift strong { display: block; font-size: 1rem; margin-top: .5rem; }
-    @media (max-width: 600px) {
-      /* Mobile-specific adjustments */
+    @media (max-width:600px) {
       nav { display: none; }
       .mobile-nav { display: flex; }
       header { padding: 4rem 1rem 1rem; }
       header h1 { font-size: 3rem; }
       .modal h2 { font-size: 1.5rem; }
     }
-    /* Desktop only: hide mobile navigation bar */
-    @media (min-width: 601px) {
-      .mobile-nav { display: none !important; }
-    }
   </style>
 </head>
 <body>
+  <div id="bg-fixed"></div>
   <div class="lang-toggle">
     <button data-lang="fr" class="active">FR</button>
     <button data-lang="de">DE</button>
   </div>
   <div id="login-overlay">
     <div class="modal">
-      <h2>Entrez le mot de passe</h2>
+      <h2 id="auth-title">Entrez le mot de passe</h2>
       <input type="password" id="pass" placeholder="Mot de passe" autocomplete="current-password" />
       <button id="login-btn">OK</button>
       <p id="err" class="err"></p>
     </div>
   </div>
-  <div id="content" class="hidden">  
-    <header><h1>Welcome Emilie</h1></header>
+  <div id="content" class="hidden">
+    <header><h1 id="headline">Welcome Emilie</h1></header>
     <nav>
       <button data-tab="location" class="active">Lieu</button>
       <button data-tab="day">Journée</button>
@@ -171,68 +155,123 @@
       <button data-tab="capsule">Time Capsule</button>
     </div>
     <div class="tab-content">
-      <section id="location" class="tab-panel location active">
+      <section id="location" class="tab-panel active">
         <img src="location-screenshot.jpg" alt="Lieu" />
-        <p>123 Rue des Fleurs, 75000 Paris</p>
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.9637240031325!2d8.613799439867021!3d47.30973261692824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa50ecb657c91%3A0xcbbdc687ac5d3090!2sForsthaus%20%2F%20Waldh%C3%BCtte%20Erlenbach!5e0!3m2!1sfr!2sch!4v1746354413327!5m2!1sfr!2sch"
-                width="100%" height="450" style="border:0; border-radius:.5rem;"
-                allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+        <p id="location-text"></p>
+        <iframe id="location-map" src="" loading="lazy"></iframe>
       </section>
-      <section id="day" class="tab-panel day">
-        <h2>Programme de la journée</h2>
-        <ul>
-          <li>10h00 – Accueil et rafraîchissements</li>
-          <li>11h00 – Jeux et animations</li>
-          <li>13h00 – Apéritif au jardin</li>
-          <li>14h00 – Barbecue & déjeuner</li>
-          <li>16h00 – Gâteau et toasts</li>
-          <li>18h00 – Clôture de la célébration</li>
-        </ul>
+      <section id="day" class="tab-panel">
+        <h2 id="day-title"></h2>
+        <ul id="day-list"></ul>
       </section>
-      <section id="dresscode" class="tab-panel dresscode">
-        <h2>Dresscode</h2>
-        <p>Tenue florale et pastel recommandée.</p>
+      <section id="dresscode" class="tab-panel">
+        <h2 id="dresscode-title"></h2>
+        <p id="dresscode-text"></p>
       </section>
-      <section id="gift" class="tab-panel gift">
-        <h2>Cadeau</h2>
-        <p>Visitez notre sélection : <a href="#">https://exemple-boutique.com</a></p>
-        <p><strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123</p>
+      <section id="gift" class="tab-panel">
+        <h2 id="gift-title"></h2>
+        <p id="gift-link-text"></p>
+        <p id="gift-iban-text"></p>
       </section>
-      <section id="capsule" class="tab-panel capsule">
-        <h2>Time Capsule</h2>
-        <p>Déposez un souvenir pour Emilie ; ouverture à ses 18 ans.</p>
-        <em>Merci pour vos messages pleins de tendresse.</em>
+      <section id="capsule" class="tab-panel">
+        <h2 id="capsule-title"></h2>
+        <p id="capsule-text"></p>
+        <em id="capsule-note"></em>
       </section>
     </div>
   </div>
   <script>
     const HASH = '8746123202abcf57509bcf4a20b72268cdd94b60629d60d9a5c30bffd45f16d8';
+    const translations = {
+      fr: {
+        nav: ['Lieu','Journée','Dresscode','Cadeau','Time Capsule'],
+        headline: 'Welcome Emilie',
+        locationText: '123 Rue des Fleurs, 75000 Paris',
+        locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.9637240031325!2d8.613799439867021!3d47.30973261692824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa50ecb657c91%3A0xcbbdc687ac5d3090!2sForsthaus%20%2F%20Waldh%C3%BCtte%20Erlenbach!5e0!3m2!1sfr!2sch!4v1746354413327!5m2!1sfr!2sch',
+        dayTitle: 'Programme de la journée',
+        dayItems: ['10h00 – Accueil et rafraîchissements','11h00 – Jeux et animations','13h00 – Apéritif au jardin','14h00 – Barbecue & déjeuner','16h00 – Gâteau et toasts','18h00 – Clôture de la célébration'],
+        dresscodeTitle: 'Dresscode',
+        dresscodeText: 'Tenue florale et pastel recommandée.',
+        giftTitle: 'Cadeau',
+        giftLinkText: 'Visitez notre sélection : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
+        giftIbanText: '<strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123',
+        capsuleTitle: 'Time Capsule',
+        capsuleText: 'Déposez un souvenir pour Emilie ; ouverture à ses 18 ans.',
+        capsuleNote: 'Merci pour vos messages pleins de tendresse.'
+      },
+      de: {
+        nav: ['Ort','Tagesablauf','Dresscode','Geschenk','Zeitkapsel'],
+        headline: 'Willkommen Emilie',
+        locationText: 'Blumenstraße 123, 10115 Berlin',
+        locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.9637240031325!2d8.613799439867021!3d47.30973261692824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa50ecb657c91%3A0xcbbdc687ac5d3090!2sForsthaus%20%2F%20Waldh%C3%BCtte%20Erlenbach!5e0!3m2!1sfr!2sch!4v1746354413327!5m2!1sfr!2sch',
+        dayTitle: 'Tagesablauf',
+        dayItems: ['10:00 – Empfang und Getränke','11:00 – Spiele und Aktivitäten','13:00 – Apéro im Garten','14:00 – Barbecue & Mittagessen','16:00 – Kuchen & Anstoßen','18:00 – Ende der Feier'],
+        dresscodeTitle: 'Dresscode',
+        dresscodeText: 'Bitte tragen Sie blumige und pastellfarbene Kleidung.',
+        giftTitle: 'Geschenk',
+        giftLinkText: 'Entdecken Sie unsere Auswahl : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
+        giftIbanText: '<strong>IBAN :</strong> DE12 3456 7890 1234 5678 90',
+        capsuleTitle: 'Zeitkapsel',
+        capsuleText: 'Legen Sie einen kleinen Schatz für Emilie hinein ; Öffnung zu ihrem 18. Geburtstag.',
+        capsuleNote: 'Vielen Dank für Ihre liebevollen Nachrichten.'
+      }
+    };
     let lang = 'fr';
-    document.querySelectorAll('.lang-toggle button').forEach(btn=>btn.addEventListener('click',()=>{
-      lang=btn.dataset.lang;
-      document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active',b===btn));
+    // Language toggle
+    document.querySelectorAll('.lang-toggle button').forEach(btn => btn.addEventListener('click', () => {
+      lang = btn.dataset.lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.toggle('active', b === btn));
+      renderData();
     }));
-    document.getElementById('login-btn').addEventListener('click',async()=>{
-      const val=document.getElementById('pass').value.trim();
-      const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(val));
-      const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-      if(hex===HASH){
-        document.getElementById('login-overlay').style.display='none';
+    // Login
+    document.getElementById('login-btn').addEventListener('click', async () => {
+      const val = document.getElementById('pass').value.trim();
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
+      const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+      if (hex === HASH) {
+        document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('content').classList.remove('hidden');
-        window.scrollTo(0,0); // ensure top
+        renderData();
       } else {
-        document.getElementById('err').textContent=lang==='fr'?'Mot de passe incorrect':'Falsches Passwort';
+        document.getElementById('err').textContent = lang === 'fr' ? 'Mot de passe incorrect' : 'Falsches Passwort';
       }
     });
+    // Render content based on language
+    function renderData() {
+      const t = translations[lang];
+      // Headline
+      document.getElementById('headline').textContent = t.headline;
+      // Nav buttons
+      document.querySelectorAll('nav button, .mobile-nav button').forEach((btn, i) => {
+        btn.textContent = t.nav[i];
+      });
+      // Location
+      document.getElementById('location-text').textContent = t.locationText;
+      document.getElementById('location-map').src = t.locationMap;
+      // Day
+      document.getElementById('day-title').textContent = t.dayTitle;
+      const dayList = document.getElementById('day-list'); dayList.innerHTML = '';
+      t.dayItems.forEach(item => { const li = document.createElement('li'); li.textContent = item; dayList.appendChild(li); });
+      // Dresscode
+      document.getElementById('dresscode-title').textContent = t.dresscodeTitle;
+      document.getElementById('dresscode-text').textContent = t.dresscodeText;
+      // Gift
+      document.getElementById('gift-title').textContent = t.giftTitle;
+      document.getElementById('gift-link-text').innerHTML = t.giftLinkText;
+      document.getElementById('gift-iban-text').innerHTML = t.giftIbanText;
+      // Capsule
+      document.getElementById('capsule-title').textContent = t.capsuleTitle;
+      document.getElementById('capsule-text').textContent = t.capsuleText;
+      document.getElementById('capsule-note').textContent = t.capsuleNote;
+    }
+    // Tab navigation
     const allTabs = document.querySelectorAll('nav button, .mobile-nav button');
     allTabs.forEach(btn => btn.addEventListener('click', () => {
       const tab = btn.dataset.tab;
-      // Activate both navs
-      document.querySelectorAll('nav button, .mobile-nav button').forEach(b => b.classList.toggle('active', b.dataset.tab===tab));
-      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id===tab));
-      // Reset scroll inside content
-      document.querySelector('.tab-content').scrollTop = 0;
+      document.querySelectorAll('nav button, .mobile-nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.toggle('active', panel.id === tab));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }));
   </script>
 </body>
