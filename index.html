@@ -158,7 +158,48 @@
       nav { display: flex !important; }
       .mobile-nav { display: none !important; }
     }
-  </style>
+    /* ================= MOBILE vs DESKTOP NAV ================ */
+  /* Hide bottom nav by default */
+  .mobile-nav { display: none; }
+
+  /* ----- Mobile (≤600px) ----- */
+  @media (max-width: 600px) {
+    /* hide desktop nav */
+    nav { display: none !important; }
+
+    /* show bottom bar */
+    .mobile-nav {
+      display: flex !important;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #fff;
+      box-shadow: 0 -2px 8px rgba(0,0,0,.12);
+      z-index: 60;
+    }
+    .mobile-nav button {
+      flex: 1;
+      padding: 1rem 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+      background: #fff;
+      color: var(--accent-primary);
+      border: none;
+      text-align: center;
+    }
+    .mobile-nav button + button { border-left: 1px solid var(--bg-pink); }
+    .mobile-nav button.active { background: var(--accent-tertiary); color: #fff; }
+
+    /* give content space below */
+    .tab-content { margin-bottom: 4.5rem; }
+  }
+
+  /* ----- Desktop (≥601px) ----- */
+  @media (min-width: 601px) {
+    nav { display: flex !important; }
+    .mobile-nav { display: none !important; }
+    .tab-content { margin-bottom: 0; }
+  }
+</style>
 </head>
 <body>
   <div id="bg-fixed"></div>
