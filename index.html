@@ -97,61 +97,38 @@
     /* Mobile bottom navigation */
     .mobile-nav { display: none; }
     @media (max-width: 600px) {
-      nav { display: none!important; }
+      /* Hide desktop nav, show mobile nav */
+      nav { display: none !important; }
       .mobile-nav {
-        display: flex!important;
+        display: flex !important;
         position: fixed;
         bottom: 0;
         left: 0;
-        right: 0;
+        width: 100%;
         background: #fff;
-        box-shadow: 0 -2px 8px rgba(0,0,0,.1);
+        box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
         z-index: 50;
       }
       .mobile-nav button {
         flex: 1;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.4rem !important;
+        padding: 1rem;
+        font-size: 1.25rem;
         font-weight: 600;
-        color: var(--accent-primary) !important;
-        background: #fff !important;
-        border: none !important;
+        color: var(--accent-primary);
+        background: #fff;
+        border: none;
         text-align: center;
+        white-space: nowrap;
       }
       .mobile-nav button.active {
-        background: var(--accent-secondary) !important;
-        color: #fff !important;
+        background: var(--accent-secondary);
+        color: #fff;
       }
     }
-    @media (min-width: 601px) { (min-width: 601px) {
-      nav { display: flex; }
-      .mobile-nav { display: none; }
-    }
-    /* Content panels */
-    .tab-content { padding: 2rem 1rem; margin-bottom: 4.5rem; flex: 1; overflow: visible; }
-    .tab-panel { display: none; background: transparent;
-      border-radius: 1rem; padding: 2rem;
-      margin: 1rem auto 2rem; max-width: 800px;
-    }
-    .tab-panel.active { display: block; }
-    /* Location and map */
-    #location img { width: 100%; height: auto; max-height: 300px;
-      object-fit: contain; border-radius: .5rem; margin-bottom: 2rem;
-    }
-    #location iframe { width: 100%; aspect-ratio: 16/9;
-      border: 0; border-radius: .5rem; margin-bottom: 2rem;
-    }
-    /* Day tab spacing */
-    #day-title { font-size: 1.5rem; margin-bottom: 1rem; }
-    .day ul { list-style: none; padding: 0; margin-bottom: 2rem; }
-    .day li { position: relative; padding-left: 1.25rem;
-      margin-bottom: 2rem; font-size: 1.25rem; line-height: 2;
-    }
-    .day li:before { content: '•'; position: absolute; left: 0;
-      color: var(--accent-primary);
+    @media (min-width: 601px) {
+      /* Show desktop nav, hide mobile nav */
+      nav { display: flex !important; }
+      .mobile-nav { display: none !important; }
     }
   </style>
 </head>
