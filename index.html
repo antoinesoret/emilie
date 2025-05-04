@@ -17,6 +17,10 @@
       --font-main: 'Josefin Sans', sans-serif;
       --font-title: 'Brittany', cursive;
     }
+    /* Hide content (including mobile nav) until unlocked */
+    #content.hidden {
+      display: none !important;
+    }
     html, body { height: 100%; margin: 0; padding: 0; }
     *, *::before, *::after { box-sizing: border-box; }
     body {
@@ -235,6 +239,11 @@
         color: #fff;
       }
     }
+  /* Force mobile-nav visibility rules */
+  .mobile-nav { display: none !important; }
+  @media (max-width: 600px) {
+    .mobile-nav { display: flex !important; }
+  }
 </style>
 </head>
 <body>
