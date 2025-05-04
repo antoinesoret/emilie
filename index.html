@@ -72,13 +72,42 @@
     /* Mobile bottom nav container */
     .mobile-nav { display: none; }
     @media (max-width: 600px) {
-      nav { display: none; }
-      .mobile-nav { display: flex; position: fixed; bottom: 0; left: 0;
-        width: 100%; box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
-        background: #fff; /* opaque for contrast */
-        z-index: 50;
+      nav { display: none !important; }
+      .mobile-nav {
+        display: flex !important;
+        justify-content: center;
+        gap: 1rem;
+        position: fixed;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(255,255,255,0.95);
+        padding: 0.5rem;
+        border-radius: 2rem;
+        z-index: 200;
       }
-      /* Mobile nav buttons */
+      /* Mobile nav buttons: larger and more readable */
+      .mobile-nav button {
+        flex: none;
+        padding: 0.75rem 1.5rem !important;
+        border: 2px solid var(--accent-primary) !important;
+        background: #fff !important;
+        color: var(--accent-primary) !important;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        border-radius: 1.5rem !important;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .mobile-nav button.active,
+      .mobile-nav button:hover {
+        background: var(--accent-tertiary) !important;
+        color: #fff !important;
+      }
+      header { padding: 4rem 1rem 1rem; }
+      header h1 { font-size: 3rem; }
+      .modal h2 { font-size: 1.5rem; }
+    }/* Mobile nav buttons */
       .mobile-nav button { flex: 1; padding: 1rem 0;
         border: none; background: transparent;
         color: var(--accent-primary) !important;
