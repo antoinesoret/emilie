@@ -106,6 +106,22 @@
       border: 0; border-radius: .5rem;
       margin-bottom: 2rem;
     }
+    /* Day tab: larger font and increased spacing */
+    #day-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-primary);
+    }
+    .day ul {
+      list-style: none; padding: 0;
+    }
+    .day li {
+      position: relative; padding-left: 1.25rem; margin-bottom: 1.5rem;
+      font-size: 1.125rem; line-height: 1.75;
+    }
+    .day li:before {
+      content: '•'; position: absolute; left: 0; color: var(--accent-primary);
+    }
     .tab-content { padding: 2rem 1rem; margin-bottom: 4.5rem; flex: 1; overflow: visible; }
     .tab-panel { display: none; background: transparent;
       border-radius: 1rem; padding: 2rem;
@@ -193,34 +209,52 @@
       fr: {
         nav: ['Lieu & Date','Journée','Dresscode','Cadeau','Time Capsule'],
         headline: 'Welcome Emilie',
-        locationText: '<br/><strong>Date :</strong> Samedi 16 aout 2025 à 14h<br/><br/><strong>Adresse :</strong>Forsthaus / Waldhütte Erlenbach - Dachsbergweg 2, 8703 Erlenbach<br/><br/><strong>Parking :</strong>Voir carte ci dessous<br/><br/><strong>Accès :</strong> 10 min de marche du parking.<br/><br/>',
+        locationText: `
+          <p><strong>Date :</strong> Samedi 16 août 2025 à 14h00</p>
+          <p><strong>Adresse :</strong><br/>Forsthaus / Waldhütte Erlenbach<br/>Dachsbergweg 2, 8703 Erlenbach</p>
+          <p><strong>Parking :</strong> Voir la carte ci-dessous</p>
+          <p><strong>Accès :</strong> 10 min de marche depuis le parking</p>
+        `,
         locationMap: 'https://www.google.com/maps/d/embed?mid=1Y6TPZ2S-fuc9uFztoCp0UiitNu6gQyU&usp=sharing',
         dayTitle: 'Programme de la journée',
-        dayItems: ['10h00 – Accueil et rafraîchissements','11h00 – Jeux et animations','13h00 – Apéritif au jardin','14h00 – Barbecue & déjeuner','16h00 – Gâteau et toasts','18h00 – Clôture de la célébration'],
+        dayItems: [
+          '12h45 – Accueil et rafraîchissements',
+          '13h00 – Début de la cérémonie',
+          'À partir de 14h00 – Apéritif & BBQ'
+        ],
         dresscodeTitle: 'Dresscode',
         dresscodeText: 'Tenue florale et pastel recommandée.',
         giftTitle: 'Cadeau',
-        giftLinkText: 'Visitez notre sélection : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
-        giftIbanText: '<strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123',
+        giftLinkText: 'Visitez notre sélection : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
+        giftIbanText: '<strong>IBAN :</strong> FR76 1234 5678 9012 3456 7890 123',
         capsuleTitle: 'Time Capsule',
-        capsuleText: 'Déposez un souvenir pour Emilie ; ouverture à ses 18 ans.',
+        capsuleText: 'Une boîte sera à disposition pour y déposer un souvenir, un mot ou un petit cadeau. Nous l’ouvrirons à ses 18 ans.',
         capsuleNote: 'Merci pour vos messages pleins de tendresse.'
       },
       de: {
         nav: ['Ort & Datum','Tagesablauf','Dresscode','Geschenk','Zeitkapsel'],
         headline: 'Willkommen Emilie',
-        locationText: '<strong>Datum :</strong> Samstag, 12. Juni 2025 um 14 Uhr<br/><strong>Adresse :</strong> Blumenstraße 123, 10115 Berlin<br/><strong>Parken :</strong> Kostenloser Parkplatz bei Blumenstraße 125<br/><strong>Zu Fuß :</strong> 10 Minuten Gehweg.',
-        locationMap: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7346.9637240031325!2d8.613799439867021!3d47.30973261692824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479aa50ecb657c91%3A0xcbbdc687ac5d3090!2sForsthaus%20%2F%20Waldh%C3%BCtte%20Erlenbach!5e0!3m2!1sfr!2sch!4v1746354413327!5m2!1sfr!2sch',
+        locationText: `
+          <p><strong>Datum :</strong> Samstag, 16. August 2025 um 14:00 Uhr</p>
+          <p><strong>Adresse :</strong><br/>Forsthaus / Waldhütte Erlenbach<br/>Dachsbergweg 2, 8703 Erlenbach</p>
+          <p><strong>Parken :</strong> Siehe Karte unten</p>
+          <p><strong>Zu Fuß :</strong> 10 Minuten vom Parkplatz</p>
+        `,
+        locationMap: 'https://www.google.com/maps/d/embed?mid=1Y6TPZ2S-fuc9uFztoCp0UiitNu6gQyU&usp=sharing',
         dayTitle: 'Tagesablauf',
-        dayItems: ['10:00 – Empfang und Getränke','11:00 – Spiele und Aktivitäten','13:00 – Apéro im Garten','14:00 – Barbecue & Mittagessen','16:00 – Kuchen & Anstoßen','18:00 – Ende der Feier'],
+        dayItems: [
+          '12:45 – Empfang und Getränke',
+          '13:00 – Beginn der Zeremonie',
+          'Ab 14:00 – Apéro & BBQ'
+        ],
         dresscodeTitle: 'Dresscode',
-        dresscodeText: 'Bitte tragen Sie blumige und pastellfarbene Kleidung.',
+        dresscodeText: 'Bitte tragt blumige, pastellfarbene Kleidung.',
         giftTitle: 'Geschenk',
-        giftLinkText: 'Entdecken Sie unsere Auswahl : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
-        giftIbanText: '<strong>IBAN :</strong> DE12 3456 7890 1234 5678 90',
+        giftLinkText: 'Entdecken Sie unsere Auswahl : <a href="https://exemple-boutique.com" target="_blank">https://exemple-boutique.com</a>',
+        giftIbanText: '<strong>IBAN :</strong> DE12 3456 7890 1234 5678 90',
         capsuleTitle: 'Zeitkapsel',
-        capsuleText: 'Legen Sie einen kleinen Schatz für Emilie hinein ; Öffnung zu ihrem 18. Geburtstag.',
-        capsuleNote: 'Vielen Dank für Ihre liebevollen Nachrichten.'
+        capsuleText: 'Eine Box steht bereit, um eine kleine Erinnerung, eine Nachricht oder ein Geschenk zu hinterlegen. Wir öffnen sie an ihrem 18. Geburtstag.',
+        capsuleNote: 'Danke für Ihre liebevollen Botschaften.'
       }
     };
     let lang = 'fr';
