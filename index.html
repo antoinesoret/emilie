@@ -270,6 +270,34 @@
   @media (max-width: 600px) {
     .mobile-nav { display: flex !important; }
   }
+  /* ===== Override Mobile Nav Styling ===== */
+  .mobile-nav { display: none !important; }
+  @media (max-width: 600px) {
+    nav { display: none !important; }
+    .mobile-nav {
+      display: flex !important;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255,255,255,0.95) !important;
+      z-index: 100;
+    }
+    .mobile-nav button {
+      flex: 1;
+      padding: 1rem 0 !important;
+      background: #fff !important;
+      border: none !important;
+      color: var(--accent-primary) !important;
+      font-size: 1.2rem !important;
+      text-align: center;
+    }
+    .mobile-nav button.active,
+    .mobile-nav button:hover {
+      background: var(--accent-secondary) !important;
+      color: #fff !important;
+    }
+  }
 </style>
 </head>
 <body>
