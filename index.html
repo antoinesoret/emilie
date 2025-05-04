@@ -110,7 +110,12 @@
         border-top-color: var(--accent-tertiary);
       }
     }
-$1
+  /* ===== Ensure desktop nav visible on large screens ===== */
+  @media (min-width: 601px) {
+    nav { display: flex !important; }
+    .mobile-nav { display: none !important; }
+  }
+</style>
 </head>
 <body>
   <div id="bg-fixed"></div>
