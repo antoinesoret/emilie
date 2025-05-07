@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invitation – Emilie</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.cdnfonts.com/css/brittany" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent-primary: #833947;
+      --accent-secondary: #df9ac5;
+      --accent-tertiary: #ca69a3;
+      --bg-pink: #fdeef1;
+      --font-main: 'Josefin Sans', sans-serif;
+      --font-title: 'Brittany', cursive;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font-main);
+      background: var(--bg-pink);
+      color: #333;
+      display: flex; flex-direction: column;
+      min-height: 100vh; overflow-x: hidden;
+    }
+    #bg-fixed {
+      position: fixed; inset: 0;
+      background: url('floral-pattern.png') center/cover no-repeat;
+      z-index: -1;
+    }
+    /* Hide mobile select by default */
+    .mobile-select { display: none; }
+.hidden { display: none !important; }
+
+    /* Password overlay */
+    #login-overlay {
+      position: fixed; inset: 0;
+      background: var(--bg-pink) url('floral-pattern.png') center/cover no-repeat;
+      display: flex; justify-content: center; align-items: center;
+      z-index: 1000;
+    }
+    .modal {
+      width: 90%; max-width: 480px;
+      background: rgba(255,255,255,0.95);
+      padding: 3rem 2rem;
+      border-radius: 2rem;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .modal h2 {
+      font-family: var(--font-title);
+      font-size: 2.5rem;
+      color: var(--accent-primary);
+      margin-bottom: 2rem;
+      letter-spacing: .05em;
+    }
+    .modal input {
+      width: 100%; padding: 1rem;
+      border: 2px solid var(--accent-secondary);
+      border-radius: 2rem;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .modal button {
+      width: 100%; padding: 1rem;
+      background: var(--accent-secondary);
+      color: #fff; border: none;
+      border-radius: 2rem;
+      font-size: 1.2rem; font-weight: 700;
+      cursor: pointer; transition: opacity .2s;
+    }
+    .modal button:hover { opacity: .85; }
+    .modal p.err { height: 1.5rem; color: #c00; margin-top: .75rem; }
+
+    /* Language toggle */
+    .lang-toggle {
+      position: fixed; top: 1rem; right: 1rem;
+      display: flex; gap: .5rem; z-index: 900;
+    }
+    .lang-toggle button {
+      background: #fff; border: 2px solid var(--accent-primary);
+      color: var(--accent-primary);
+      padding: .5rem 1rem; border-radius: 2rem;
+      font-weight: 600; cursor: pointer;
+    }
+    .lang-toggle button.active,
+    .lang-toggle button:hover { background: var(--accent-primary); color: #fff; }
+
+    /* Header */
+    header { text-align: center; padding: 6rem 1rem 2rem; }
+    header h1 { font-family: var(--font-title); font-size: 4rem; color: var(--accent-primary); }
+
+    /* Desktop nav */
+    nav { display: flex; gap: 1rem; margin: 2rem auto 0; max-width: 90%; }
+    nav button {
+      flex: 1; padding: 1.25rem;
+      background: #fff; border: none; border-radius: 1rem;
+      font-size: 1.3rem; font-weight: 600;
+      cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.12);
+      transition: .3s;
+    }
+    nav button.active { background: var(--accent-tertiary); color: #fff; }
+    nav button:hover:not(.active) { background: var(--accent-secondary); color: #fff; }
+
+    /* Mobile bottom nav */
+    .mobile-nav { display: none; }
+    @media (max-width: 600px) {
+      /* Hide desktop nav, show mobile select */
+      nav { display: none !important; }
+      .mobile-select { display: block; width: 90%; max-width: 360px; margin: 1rem auto; }
+      .mobile-select select { width: 100%; padding: 1rem; font-size: 1.3rem; font-weight: 600; border-radius: 1rem; border: 2px solid var(--accent-primary); }
+      /* Hide old mobile-nav bar */
+      .mobile-nav { display: none !important; }
+      .tab-content { margin-top: 1rem; margin-bottom: 2rem; } { margin-bottom: 5rem; }
+    }
+    @media (min-width: 601px) { .mobile-nav { display: none !important; } }
+
+    /* Panels */
+    .tab-content { flex: 1; padding: 2rem 1rem; }
+    /* Card-like container for each panel */
+    .tab-panel {
+      display: none;
+      max-width: 800px;
+      margin: 1.5rem auto;
+      background: rgba(255,255,255,0.85);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      line-height: 1.6;
+    }
+    .tab-panel.active { display: block; }
+    /* Section headings */
+    .tab-panel h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+    /* Paragraphs */
+    .tab-panel p {
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    /* Lists */
+    .tab-panel ul {
+      margin: 0;
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .tab-panel ul li {
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+    /* Location specific overrides */
+    #location img {
+      width: 100%; max-height: 320px;
+      object-fit: cover; border-radius: .5rem;
+      margin-bottom: 1.5rem;
+    }
+    #location iframe {
+      width: 100%; aspect-ratio: 16/9;
+      border: 0; border-radius: .5rem;
+      margin-top: 1.5rem;
+    }
+    /* Day list */
+    #day-title { font-size: 1.8rem; margin-bottom: 1rem; }
+    .day ul { list-style: disc; }
+    .day li { padding-left: 0.5rem; }
+    .day li::before { content: ''; }
+
+    .tab-panel { display: none; max-width: 800px; margin: 1rem auto; }
+    .tab-panel.active { display: block; }
+    #location img { width: 100%; max-height: 320px; object-fit: contain; border-radius: .5rem; margin-bottom: 2rem; }
+    #location iframe { width: 100%; aspect-ratio: 16/9; border: 0; border-radius: .5rem; margin-bottom: 2rem; }
+    #day-title { font-size: 1.6rem; margin-bottom: 1rem; color: var(--accent-primary); }
+    .day ul { list-style: none; padding: 0; }
+    .day li { position: relative; padding-left: 1.25rem; margin-bottom: 1.75rem; font-size: 1.25rem; line-height: 1.8; }
+    .day li::before { content: '•'; position: absolute; left: 0; color: var(--accent-primary); }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/js-sha256@0.9/dist/sha256.min.js" integrity="sha384-8XpoSoKMwB8Wd38sW6GNRTIEkC0uBCurandSOKHDwSOC/ZK+Ra97+7wm9k5ZAvZX" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="bg-fixed"></div>
+  <!-- Language toggle -->
+  <div class="lang-toggle">
+    <button data-lang="fr" class="active">FR</button>
+    <button data-lang="de">DE</button>
+  </div>
+
+  <!-- Password Overlay -->
+  <div id="login-overlay">
+    <div class="modal">
+      <h2 id="auth-title">Entrez le mot de passe</h2>
+      <input type="password" id="pass" placeholder="Mot de passe" autocomplete="current-password" />
+      <button id="login-btn">OK</button>
+      <p id="err" class="err"></p>
+    </div>
+  </div>
+
+  <!-- Protected Content -->
+  <div id="content" class="hidden">
+    <header><h1 id="headline">Welcome Emilie</h1></header>
+    <nav>
+      <button data-tab="location" class="active">Lieu & Date</button>
+      <button data-tab="day">Journée</button>
+      <button data-tab="dresscode">Dresscode</button>
+      <button data-tab="gift">Cadeau</button>
+      <button data-tab="capsule">Time Capsule</button>
+    </nav>
+    <!-- Mobile: simple select dropdown for navigation -->
+    <div class="mobile-select">
+      <select id="mobile-select" aria-label="Sélection de section">
+        <option value="location">Lieu & Date</option>
+        <option value="day">Journée</option>
+        <option value="dresscode">Dresscode</option>
+        <option value="gift">Cadeau</option>
+        <option value="capsule">Time Capsule</option>
+      </select>
+    </div>
+    <div class="tab-content">
+      <section id="location" class="tab-panel active">
+        <img src="location.jpeg" alt="Lieu" />
+        <p id="location-text"></p>
+        <iframe id="location-map" src="" loading="lazy"></iframe>
+      </section>
+      <section id="day" class="tab-panel">
+        <h2 id="day-title"></h2>
+        <ul id="day-list"></ul>
+      </section>
+      <section id="dresscode" class="tab-panel">
+        <h2 id="dresscode-title"></h2>
+        <p id="dresscode-text"></p>
+      </section>
+      <section id="gift" class="tab-panel">
+        <h2 id="gift-title"></h2>
+        <p id="gift-link-text"></p>
+        <p id="gift-iban-text"></p>
+      </section>
+      <section id="capsule" class="tab-panel">
+        <h2 id="capsule-title"></h2>
+        <p id="capsule-text"></p>
+        <em id="capsule-note"></em>
+      </section>
+    </div>
+  </div>
+
+  <script>    const select = document.getElementById('mobile-select');
+
+    const HASH = '8746123202abcf57509bcf4a20b72268cdd94b60629d60d9a5c30bffd45f16d8';
+    const translations = {
+      fr: {
+        nav: ['Lieu & Date','Journée','Dresscode','Cadeau','Time Capsule'],
+        headline: 'Welcome Emilie',
+        locationText: `
+          <p><strong>Quand :</strong> Samedi 16 août 2025, 13 h</p>
+          <p><strong>Où :</strong> Cabane forestière d'Erlenbach<br/>Dachsbergweg 1, 8703 Erlenbach</p>
+          <p><strong>Parking :</strong> Parking sur la route principale « Forchstrasse »</p>
+          <p>La cabane n'est accessible qu'à pied (env. 10 min du parking).</p>
+          <p>Le chemin est indiqué par des ballons.</p>
+          <p><strong>Inscription :</strong> Merci de nous dire avant le dimanche 15 juin 2025 si vous venez.</p>
+        `,
+        locationMap: 'https://www.google.com/maps/d/embed?mid=1Y6TPZ2S-fuc9uFztoCp0UiitNu6gQyU&usp=sharing',
+        dayTitle: 'Journée',
+        dayItems: [
+          '13 h 00 – Arrivée, accueil et rafraîchissements',
+          '13 h 30 – Début de la cérémonie',
+          '14 h 20 – Apéro suivi d’un BBQ',
+          'Open End'
+        ],
+        dresscodeTitle: 'Code vestimentaire',
+        dresscodeText: `
+          <p><strong>COLORÉ ET FLEURI !!!</strong></p>
+          <p>Thème « Fleur de vie » : Portez fleurs et couleurs.</p>
+          <p><em>Hommes :</em> T-shirt/chemise à fleurs et/ou fleur à épingler.</p>
+          <p><em>Femmes :</em> Robe/blouse/shirt à fleurs et/ou couronne de fleurs.</p>
+          <p>Fête en forêt : Chaussures fermées recommandées, pantalon long pour les enfants.</p>
+          <p>En cas de mauvais temps, intérieur de la cabane.</p>
+        `,
+        giftTitle: 'Cadeaux',
+        giftLinkText: 'Sélection de cadeaux : <a href="https://happygiftlist.com/fr/wunschliste/ef8ji067" target="_blank">https://happygiftlist.com/fr/wunschliste/ef8ji067</a>',
+        giftIbanText: '<strong>IBAN :</strong> Work In Progress',
+        capsuleTitle: 'Time Capsule',
+        capsuleText: 'Work In Progress',
+        capsuleNote: '-'
+      },
+      de: {
+        nav: ['Ort & Datum','Tagesablauf','Dresscode','Geschenk','Zeitkapsel'],
+        headline: 'Willkommen Emilie',
+        locationText: `
+          <p><strong>Wann :</strong> Samstag, 16. August 2025, 13 Uhr</p>
+          <p><strong>Wo :</strong> Waldhütte Erlenbach<br/>Dachsbergweg 1, 8703 Erlenbach</p>
+          <p><strong>Parken :</strong> Parkplatz an der Hauptstrasse «Forchstrasse»</p>
+          <p>Hütte nur zu Fuss (ca. 10 Min. vom Parkplatz).</p>
+          <p>Weg gekennzeichnet mit Luftballons.</p>
+          <p><strong>Anmeldung :</strong> Bitte bis Sonntag, 15. Juni 2025 Bescheid geben.</p>
+        `,
+        locationMap: 'https://www.google.com/maps/d/embed?mid=1Y6TPZ2S-fuc9uFztoCp0UiitNu6gQyU&usp=sharing',
+        dayTitle: 'Tagesablauf',
+        dayItems: [
+          '13 Uhr – Eintreffen, Begrüssung und Erfrischungen',
+          '13:30 Uhr – Beginn der Zeremonie',
+          '14:20 Uhr – Apéro mit anschließendem BBQ',
+          'Open End'
+        ],
+        dresscodeTitle: 'Dresscode',
+        dresscodeText: `
+          <p><strong>BUNT UND BLUMIG!!!</strong></p>
+          <p>Motto «Blume des Lebens» : Blumen und Farben tragen.</p>
+          <p><em>Herren :</em> Blumiges T-Shirt/Hemd und/oder Ansteckblume.</p>
+          <p><em>Damen :</em> Blumenkleid/Bluse/Shirt und/oder Blumenkranz.</p>
+          <p>Feier im Wald : geschlossene Schuhe empfohlen, lange Hosen für Kinder.</p>
+          <p>Bei schlechtem Wetter innen in der Hütte.</p>
+        `,
+        giftTitle: 'Geschenke',
+        giftLinkText: 'Geschenkeliste : <a href="https://happygiftlist.com/de/wunschliste/ef8ji067" target="_blank">https://happygiftlist.com/de/wunschliste/ef8ji067</a>',
+        giftIbanText: '<strong>IBAN :</strong> Work In Progress',
+        capsuleTitle: 'Zeitkapsel',
+        capsuleText: 'Work In Progress',
+        capsuleNote: '-'
+      }
+    };
+
+    let lang = 'fr';
+    const loginOverlay = document.getElementById('login-overlay');
+    const content = document.getElementById('content');
+
+    async function sha256(txt){
+      if (window.crypto?.subtle && typeof TextEncoder !== 'undefined'){
+        return crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt))
+          .then(buf => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join(''));
+      }
+      return Promise.resolve(window.sha256(txt));
+    }
+
+    function unlock() {
+      loginOverlay.style.display = 'none';
+      content.classList.remove('hidden');
+      renderData();
+      setupTabs();
+      window.scrollTo(0, 0);
+    }
+
+    document.getElementById('login-btn').addEventListener('click', async () => {
+      const val = document.getElementById('pass').value.trim();
+    /* Enter-to-submit */
+    document.getElementById('pass').addEventListener('keydown', e=>{
+      if(e.key==='Enter') document.getElementById('login-btn').click();
+    });
+
+      
+       /* if (val === 'fleurs2025' || await sha256(val) === HASH) {*/
+      if (await sha256(val) === HASH) {
+        unlock();
+      } else {
+        document.getElementById('err').textContent = lang === 'fr' ? 'Mot de passe incorrect' : 'Falsches Passwort';
+      }
+    });
+
+    document.querySelectorAll('.lang-toggle button').forEach(btn => btn.addEventListener('click', () => {
+      lang = btn.dataset.lang;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-toggle button').forEach(b => b.classList.toggle('active', b === btn));
+      if (!content.classList.contains('hidden')) renderData();
+    }));
+
+    function renderData() {
+      const t = translations[lang];
+      document.getElementById('headline').textContent = t.headline;
+      document.querySelectorAll('nav button').forEach((btn, i) => btn.textContent = t.nav[i]);
+      select.querySelectorAll('option').forEach((opt,i)=>opt.textContent = t.nav[i]);
+      document.getElementById('location-text').innerHTML = t.locationText;
+      document.getElementById('location-map').src = t.locationMap;
+      document.getElementById('day-title').textContent = t.dayTitle;
+      const dayList = document.getElementById('day-list'); dayList.innerHTML = '';
+      t.dayItems.forEach(item => { const li = document.createElement('li'); li.textContent = item; dayList.append(li); });
+      document.getElementById('dresscode-title').textContent = t.dresscodeTitle;
+      document.getElementById('dresscode-text').innerHTML = t.dresscodeText;
+      document.getElementById('gift-title').textContent = t.giftTitle;
+      document.getElementById('gift-link-text').innerHTML = t.giftLinkText;
+      document.getElementById('gift-iban-text').innerHTML = t.giftIbanText;
+      document.getElementById('capsule-title').textContent = t.capsuleTitle;
+      document.getElementById('capsule-text').textContent = t.capsuleText;
+      document.getElementById('capsule-note').textContent = t.capsuleNote;
+    }
+
+    
+function setActiveTab(id){
+      const tabs = document.querySelectorAll('nav button');
+      const panels = document.querySelectorAll('.tab-panel');
+      tabs.forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+      panels.forEach(p => p.classList.toggle('active', p.id === id));
+      select.value = id;
+      window.scrollTo({top:0});
+    }
+
+    function setupTabs(){
+      document.querySelectorAll('nav button').forEach(btn => btn.addEventListener('click', () => setActiveTab(btn.dataset.tab)));
+      select.addEventListener('change', e => setActiveTab(e.target.value));
+    }));
+    }
+  </script>
+</body>
+</html>
