@@ -105,9 +105,19 @@
     nav button.active { background: var(--accent-tertiary); color: #fff; }
     nav button:hover:not(.active) { background: var(--accent-secondary); color: #fff; }
 
-    /* Mobile bottom nav */
-    .mobile-nav { display: none; }
+    /* Mobile navigation: show desktop nav as horizontal scroll */
+    .mobile-select { display: none !important; }
     @media (max-width: 600px) {
+      /* Show nav, hide select */
+      nav { display: flex !important; overflow-x: auto; gap: .5rem; padding: 0 1rem; }
+      nav button { flex: 0 0 auto; min-width: 120px; white-space: normal; word-break: break-word; }
+      nav button.active { background: var(--accent-tertiary); color: #fff; }
+      /* Remove bottom margin as no mobile select */
+      .tab-content { margin-bottom: 2rem; }
+    }
+    @media (min-width: 601px) { .mobile-select { display: none !important; } }
+
+    /* Panels */ (max-width: 600px) {
       /* Hide desktop nav, show mobile select */
       nav { display: none !important; }
       .mobile-select { display: block; width: 90%; max-width: 360px; margin: 1rem auto; }
@@ -132,6 +142,11 @@
 </head>
 <body>
   <div id="bg-fixed"></div>
+  <!-- Language toggle -->
+  <div class="lang-toggle">
+    <button data-lang="fr" class="active">FR</button>
+    <button data-lang="de">DE</button>
+  </div>
 
   <!-- Password Overlay -->
   <div id="login-overlay">
@@ -153,16 +168,7 @@
       <button data-tab="gift">Cadeau</button>
       <button data-tab="capsule">Time Capsule</button>
     </nav>
-    <!-- Mobile: simple select dropdown for navigation -->
-    <div class="mobile-select">
-      <select id="mobile-select" aria-label="Sélection de section">
-        <option value="location">Lieu & Date</option>
-        <option value="day">Journée</option>
-        <option value="dresscode">Dresscode</option>
-        <option value="gift">Cadeau</option>
-        <option value="capsule">Time Capsule</option>
-      </select>
-    </div>
+    
     <div class="tab-content">
       <section id="location" class="tab-panel active">
         <img src="location.jpeg" alt="Lieu" />
@@ -198,7 +204,7 @@
         headline: 'Welcome Emilie',
         locationText: `
           <p><strong>Quand :</strong> Samedi 16 août 2025, 13 h</p>
-          <p><strong>Où :</strong><br/>Cabane forestière d'Erlenbach<br/>Dachsbergweg 1, 8703 Erlenbach</p>
+          <p><strong>Où :</strong>Cabane forestière d'Erlenbach<br/>Dachsbergweg 1, 8703 Erlenbach</p>
           <p><strong>Parking :</strong> Parking sur la route principale « Forchstrasse »</p>
           <p>La cabane n'est accessible qu'à pied (env. 10 min du parking).</p>
           <p>Le chemin est indiqué par des ballons.</p>
@@ -258,7 +264,7 @@
         `,
         giftTitle: 'Geschenke',
         giftLinkText: 'Geschenkeliste : <a href="https://happygiftlist.com/de/wunschliste/ef8ji067" target="_blank">https://happygiftlist.com/de/wunschliste/ef8ji067</a>',
-        giftIbanText: '<strong>IBAN :</strong> DE12 3456 7890 1234 5678 90',
+        giftIbanText: '<strong>IBAN :</strong>Work In Progress,
         capsuleTitle: 'Zeitkapsel',
         capsuleText: 'Eine Box steht bereit, um eine Erinnerung oder Botschaft zu hinterlegen : Öffnung an ihrem 18. Geburtstag.',
         capsuleNote: 'Vielen Dank für eure lieben Nachrichten!'
