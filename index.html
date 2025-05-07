@@ -308,7 +308,7 @@
       const dayList = document.getElementById('day-list'); dayList.innerHTML = '';
       t.dayItems.forEach(item => { const li = document.createElement('li'); li.textContent = item; dayList.append(li); });
       document.getElementById('dresscode-title').textContent = t.dresscodeTitle;
-      document.getElementById('dresscode-text').textContent = t.dresscodeText;
+      document.getElementById('dresscode-text').innerHTML = t.dresscodeText;
       document.getElementById('gift-title').textContent = t.giftTitle;
       document.getElementById('gift-link-text').innerHTML = t.giftLinkText;
       document.getElementById('gift-iban-text').innerHTML = t.giftIbanText;
