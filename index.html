@@ -341,7 +341,9 @@
 
     document.getElementById('login-btn').addEventListener('click', async () => {
       const val = document.getElementById('pass').value.trim();
-      if (val === 'fleurs2025' || await sha256(val) === HASH) {
+      
+       /* if (val === 'fleurs2025' || await sha256(val) === HASH) {*/
+      if (await sha256(val) === HASH) {
         unlock();
       } else {
         document.getElementById('err').textContent = lang === 'fr' ? 'Mot de passe incorrect' : 'Falsches Passwort';
