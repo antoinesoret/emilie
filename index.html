@@ -108,22 +108,13 @@
     /* Mobile bottom nav */
     .mobile-nav { display: none; }
     @media (max-width: 600px) {
+      /* Hide desktop nav, show mobile select */
       nav { display: none !important; }
-      .mobile-nav {
-        display: flex; position: fixed;
-        bottom: 0; left: 0; right: 0;
-        background: #fff; z-index: 900;
-        box-shadow: 0 -2px 8px rgba(0,0,0,.12);
-      }
-      .mobile-nav button {
-        flex: 1 1 20%; padding: 1rem;
-        background: #fff; color: var(--accent-primary);
-        border: none; font-size: 1.25rem; font-weight: 600;
-        text-align: center; line-height: 1.2;
-        white-space: normal; word-break: break-word;
-      }
-      .mobile-nav button.active { background: var(--accent-secondary); color: #fff; }
-      .tab-content { margin-bottom: 5rem; }
+      .mobile-select { display: block; width: 90%; max-width: 360px; margin: 1rem auto; }
+      .mobile-select select { width: 100%; padding: 1rem; font-size: 1.3rem; font-weight: 600; border-radius: 1rem; border: 2px solid var(--accent-primary); }
+      /* Hide old mobile-nav bar */
+      .mobile-nav { display: none !important; }
+      .tab-content { margin-top: 1rem; margin-bottom: 2rem; } { margin-bottom: 5rem; }
     }
     @media (min-width: 601px) { .mobile-nav { display: none !important; } }
 
